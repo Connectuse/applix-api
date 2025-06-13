@@ -76,7 +76,7 @@ paths:
         '401':
           description: Autenticação falhou (client_id ou client_secret inválidos)
 
-  /vendas/v3/CategoriaProduto:
+  /vendas/v3/ListaCategoriaProduto:
     get:
       tags:
         - vendas/v3
@@ -191,7 +191,7 @@ paths:
                 status: "ERROR"
                 mensagem: "Autenticação inválida."
 
-  /vendas/v3/CondicaoPagto:
+  /vendas/v3/ListaCondicaoPagto:
     get:
       tags:
         - vendas/v3
@@ -317,7 +317,7 @@ paths:
                 status: "ERROR"
                 mensagem: "Autenticação inválida."
                 
-  /vendas/v3/ContasReceber:
+  /vendas/v3/ListaContaReceber:
     get:
       tags:
         - vendas/v3
@@ -339,6 +339,19 @@ paths:
           schema:
             type: integer
             default: 0
+        - name: cnpjcpfcliente
+          in: query
+          description: Documento CNPJ ou CPF do cliente, sem traços ou pontuações, apenas números.
+          required: false
+          schema:
+            type: string
+        - name: situacao
+          in: query
+          description: Situação referente a conta a receber.
+          required: false
+          schema:
+            type: string
+            enum: [LIQUIDADA,ABERTA,CANCELADA]
       responses:
         '200':
           description: Retorno de sucesso com a lista de contas a receber.
@@ -529,7 +542,7 @@ paths:
                 status: "ERROR"
                 mensagem: "Autenticação inválida."
 
-  /vendas/v3/FormaCobranca:
+  /vendas/v3/ListaFormaCobranca:
     get:
       tags:
         - vendas/v3
@@ -662,7 +675,7 @@ paths:
                 status: "ERROR"
                 mensagem: "Autenticação inválida."
 
-  /vendas/v3/GrupoCliente:
+  /vendas/v3/ListaGrupoCliente:
     get:
       tags:
         - vendas/v3
@@ -1361,6 +1374,32 @@ paths:
         - vendas/v3
       summary: Lista de clientes
       description: Retorna uma lista de clientes cadastrados com seus respectivos dados cadastrais, contatos e classificações.
+      parameters:
+        - name: vendedorpadrao
+          in: query
+          required: false
+          description: Nome do usuário de sistema do vendedor padrão vinculado ao cliente.
+          schema:
+            type: string
+        - name: datainclusao
+          in: query
+          required: false
+          description: Data inclusão do pedido no formato YYYY-MM-DD
+          schema:
+            type: string
+        - name: dataalteracao
+          in: query
+          required: false
+          description: Data da última alteração do pedido no formato YYYY-MM-DD
+          schema:
+            type: string
+        - name: cnpjcpfcliente
+          in: query
+          required: false
+          description: CNPJ ou CPF do cliente, permite no mínimo 8 digitos para buscar todos os registros no comparativo pela raiz do CNPJ.
+          schema:
+            type: string
+            example: "19081292000162"
       responses:
         '200':
           description: Lista de clientes retornada com sucesso
@@ -1556,7 +1595,7 @@ paths:
                     type: string
                     example: "Dados retornados com sucesso"
 
-  /vendas/v3/ListaNotaFiscal/{mod}/{numero}:
+  /vendas/v3/ListaNotaFiscal/{mod}/{serie}/{numero}:
     get:
       tags:
         - vendas/v3
@@ -1569,6 +1608,12 @@ paths:
           schema:
             type: string
           example: "01"
+        - name: serie
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
         - name: numero
           in: path
           required: true
@@ -1707,27 +1752,32 @@ paths:
                                 type: integer
                                 example: 6012
 
-  /vendas/v3/ListaNotasFiscais:
+  /vendas/v3/ListaNotaFiscal:
     get:
       tags:
         - vendas/v3
       summary: Lista Notas Fiscais
       description: Retorna uma lista de notas fiscais com base nos filtros informados.
       parameters:
+        - name: serie
+          in: query
+          required: true
+          description: Série da Nota Fiscal
+          schema:
+            type: integer
+            example: 1
         - name: datainicial
           in: query
           required: false
-          description: Data inicial no formato DD-MM-YYYY
+          description: Data inicial no formato YYYY-MM-DD
           schema:
             type: string
-            example: "01-01-2011"
         - name: datafinal
           in: query
           required: false
-          description: Data final no formato DD-MM-YYYY
+          description: Data final no formato YYYY-MM-DD
           schema:
             type: string
-            example: "31-12-2011"
         - name: mod
           in: query
           required: false
@@ -1949,7 +1999,7 @@ paths:
                     type: string
                     example: "SUCCESS"
 
-  /vendas/v3/ListaOrcamentos:
+  /vendas/v3/ListaOrcamento:
     get:
       tags:
         - vendas/v3
@@ -1958,14 +2008,14 @@ paths:
       parameters:
         - name: datainicial
           in: query
-          description: Data inicial no formato DD-MM-YYYY
+          description: Data inicial no formato YYYY-MM-DD
           required: false
           schema:
             type: string
             example: "01-01-2023"
         - name: datafinal
           in: query
-          description: Data final no formato DD-MM-YYYY
+          description: Data final no formato YYYY-MM-DD
           required: false
           schema:
             type: string
@@ -1994,7 +2044,7 @@ paths:
             example: "13745643000106"
         - name: dataenvio
           in: query
-          description: Data de envio do orçamento (formato DD-MM-YYYY)
+          description: Data de envio do orçamento (formato YYYY-MM-DD)
           required: false
           schema:
             type: string
@@ -2229,7 +2279,7 @@ paths:
                                 type: string
                                 nullable: true
 
-  /vendas/v3/ListaPedidos:
+  /vendas/v3/ListaPedido:
     get:
       tags:
         - vendas/v3
@@ -2239,14 +2289,14 @@ paths:
         - name: datainicial
           in: query
           required: false
-          description: Data inicial no formato DD-MM-YYYY
+          description: Data inicial no formato YYYY-MM-DD
           schema:
             type: string
             example: "01-05-2025"
         - name: datafinal
           in: query
           required: false
-          description: Data final no formato DD-MM-YYYY
+          description: Data final no formato YYYY-MM-DD
           schema:
             type: string
             example: "31-05-2025"
@@ -2382,7 +2432,7 @@ paths:
                     type: string
                     example: "Dados retornados com sucesso"
 
-  /vendas/v3/MovtoSaidaConsumo:
+  /vendas/v3/InclusaoMovtoSaidaConsumo:
     post:
       tags:
         - vendas/v3
@@ -2464,7 +2514,7 @@ paths:
                           type: string
                           example: "[lote=011] não registrado no sistema ou não vinculado ao produto especificado."
 
-  /vendas/v3/Servicos:
+  /vendas/v3/ListaServicos:
     get:
       tags:
         - vendas/v3
@@ -2535,7 +2585,7 @@ paths:
                     type: string
                     example: "Dados retornados com sucesso"
 
-  /vendas/v3/Produtos:
+  /vendas/v3/ListaProdutos:
     get:
       tags:
         - vendas/v3
@@ -2618,7 +2668,7 @@ paths:
                     type: string
                     example: "Dados retornados com sucesso"
 
-  /vendas/v3/SaldoEstoque:
+  /vendas/v3/ListaSaldoEstoque:
     get:
       tags:
         - vendas/v3
@@ -2713,7 +2763,7 @@ paths:
                     type: string
                     example: "Dados retornados com sucesso"
 
-  /vendas/v3/TabelaPrecos:
+  /vendas/v3/ListaTabelaPrecos:
     get:
       tags:
         - vendas/v3
@@ -2822,7 +2872,7 @@ paths:
                     type: string
                     example: "Dados retornados com sucesso"
 
-  /vendas/v3/Vendedores:
+  /vendas/v3/ListaVendedores:
     get:
       tags:
         - vendas/v3
@@ -2942,7 +2992,7 @@ paths:
                     type: string
                     example: "Dados retornados com sucesso"
 
-  /financ/v3/SaldoCaixaBanco:
+  /financ/v3/ListaSaldoCaixaBanco:
     get:
       tags:
         - financ/v3
@@ -3025,7 +3075,7 @@ paths:
                     type: string
                     example: "Dados retornados com sucesso"
 
-  /financ/v3/ContasReceberPagarContratosNaoFaturados:
+  /financ/v3/ListaContaReceberPagar:
     get:
       tags:
         - financ/v3
