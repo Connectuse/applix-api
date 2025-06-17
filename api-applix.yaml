@@ -3,9 +3,27 @@ info:
   title: Applix API v3
   version: 1.0.0
   description: >
-    API REST para integração com os módulos ERP do sistema Applix.
-    Esta API permite operações como consulta de produtos, clientes, orçamentos,
-    pedidos e condições de pagamento.
+    Esta API RESTful disponibiliza os serviços dos módulos de **Vendas** e **Financeiro**
+    do sistema Applix, com suporte para operações de consulta, inclusão e atualização
+    de dados comerciais e financeiros.
+
+    A estrutura da API está organizada por versão (atualmente `v3`) e segue boas práticas
+    de autenticação via OAuth2. Os principais recursos são agrupados nos seguintes blocos:
+
+    - **/oauth**: Endpoints de autenticação e geração de tokens.
+    - **/vendas/v3**: Endpoints relacionados a clientes, pedidos, produtos, condições de pagamento, etc.
+    - **/financ/v3**: Endpoints de contas a pagar/receber, contratos e movimentações financeiras.
+
+    Os dados trafegam em formato **JSON** por padrão, e alguns endpoints específicos podem retornar
+    arquivos em formatos binários como **PDF**, utilizando `application/pdf` como content-type.
+
+    Campos obrigatórios estão devidamente especificados por entidade. Parâmetros como `tipodata`,
+    `datainicio`, e `datafim` são comumente usados em filtros temporais e seguem o formato `DD/MM/YYYY`.
+
+    Para facilitar a integração, todos os endpoints incluem exemplos de requisições e respostas.
+  contact:
+    name: Suporte Applix
+    email: suporte@applix.com.br
 
 servers:
   - url: https://appdes.connectuse.com.br/apps/wt/
