@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Applix API v3
   version: 1.0.0
-  description: >
+  description: |-
     Esta API RESTful disponibiliza os serviços dos módulos de **Vendas** e **Financeiro**
     do sistema Applix, com suporte para operações de consulta, inclusão e atualização
     de dados comerciais e financeiros.
@@ -18,7 +18,7 @@ info:
     arquivos em formatos binários como **PDF**, utilizando `application/pdf` como content-type.
 
     Campos obrigatórios estão devidamente especificados por entidade. Parâmetros como `tipodata`,
-    `datainicio`, e `datafim` são comumente usados em filtros temporais e seguem o formato `DD/MM/YYYY`.
+    `datainicio`, e `datafim` são comumente usados em filtros temporais e seguem o formato `YYYY-MM-DD`.
 
     Para facilitar a integração, todos os endpoints incluem exemplos de requisições e respostas.
   contact:
