@@ -76,1125 +76,175 @@ paths:
         '401':
           description: Autenticação falhou (client_id ou client_secret inválidos)
 
-  /vendas/v3/ListaCategoriaProduto:
+  /vendas/v3/ListaPedido:
     get:
       tags:
         - vendas/v3
-      summary: Lista categorias de produto
-      description: >
-        Retorna uma lista paginada de categorias de produtos, com metadados sobre a quantidade total, controle de paginação,
-        e nome do arquivo de origem. Ideal para interfaces com rolagem ou filtros.
+      summary: Lista pedidos de venda
+      description: Retorna uma lista de pedidos com base nos filtros fornecidos.
       parameters:
-        - name: i_limit
+        - name: datainicial
           in: query
-          description: Número máximo de registros retornados por página
           required: false
-          schema:
-            type: integer
-            default: 100
-        - name: i_offset
-          in: query
-          description: Posição inicial da consulta atual (para paginação)
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        '200':
-          description: Retorno de sucesso com a lista de categorias de produto.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    description: Lista de categorias de produto.
-                    items:
-                      type: object
-                      properties:
-                        codigo:
-                          type: string
-                          description: Código da categoria.
-                          example: "194"
-                        descricao:
-                          type: string
-                          description: Descrição da categoria.
-                          example: "Material"
-                        codigopai:
-                          type: string
-                          nullable: true
-                          description: Código da categoria pai (se existir).
-                          example: "61"
-                  totalCount:
-                    type: integer
-                    description: Total de registros disponíveis na base de dados.
-                    example: 57
-                  limit:
-                    type: integer
-                    description: Número máximo de registros retornados por página.
-                    example: 2
-                  offset:
-                    type: integer
-                    description: Posição inicial da consulta atual (para paginação).
-                    example: 1
-                  filename:
-                    type: string
-                    description: Nome do recurso/arquivo retornado.
-                    example: "CategoriaProduto"
-                  count:
-                    type: integer
-                    description: Quantidade de registros retornados nesta página.
-                    example: 2
-                  hasMore:
-                    type: boolean
-                    description: Indica se há mais registros além dos retornados.
-                    example: true
-                  status:
-                    type: string
-                    description: Status da requisição.
-                    example: "SUCCESS"
-                  message:
-                    type: string
-                    description: Mensagem adicional da API.
-                    example: "Dados retornados com sucesso"
-              example:
-                items:
-                  - codigo: "194"
-                    descricao: "Material"
-                    codigopai: "61"
-                  - codigo: "195"
-                    descricao: "Sólido"
-                    codigopai: "61"
-                totalCount: 57
-                limit: 2
-                offset: 1
-                filename: "CategoriaProduto"
-                count: 2
-                hasMore: true
-                status: "SUCCESS"
-                message: "Dados retornados com sucesso"
-        '401':
-          description: Erro de autenticação
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: "ERROR"
-                  mensagem:
-                    type: string
-                    example: "Autenticação inválida."
-              example:
-                status: "ERROR"
-                mensagem: "Autenticação inválida."
-
-  /vendas/v3/ListaCondicaoPagto:
-    get:
-      tags:
-        - vendas/v3
-      summary: Lista condições de pagamento
-      description: >
-        Retorna uma lista paginada de condições de pagamento, com metadados sobre a quantidade total, controle de paginação,
-        e nome do arquivo de origem. Ideal para interfaces com rolagem ou filtros.
-      parameters:
-        - name: i_limit
-          in: query
-          description: Número máximo de registros retornados por página
-          required: false
-          schema:
-            type: integer
-            default: 100
-        - name: i_offset
-          in: query
-          description: Posição inicial da consulta atual (para paginação)
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        '200':
-          description: Retorno de sucesso com a lista de condições de pagamento.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    description: Lista de condições de pagamento.
-                    items:
-                      type: object
-                      properties:
-                        codigo:
-                          type: string
-                          description: Código da condição de pagamento.
-                          example: "00000275"
-                        descricao:
-                          type: string
-                          description: Descrição da condição de pagamento.
-                          example: "20 dias sem juros"
-                        tipo:
-                          type: string
-                          description: Tipo da condição.
-                          example: "DDL"
-                        prazos:
-                          type: string
-                          description: Informação de prazos.
-                          example: "0"
-                        situacao:
-                          type: string
-                          description: Situação da condição.
-                          example: "ATIVO"
-                  totalCount:
-                    type: integer
-                    description: Total de registros disponíveis na base de dados.
-                    example: 74
-                  limit:
-                    type: integer
-                    description: Número máximo de registros retornados por página.
-                    example: 2
-                  offset:
-                    type: integer
-                    description: Posição inicial da consulta atual (para paginação).
-                    example: 1
-                  filename:
-                    type: string
-                    description: Nome do recurso/arquivo retornado.
-                    example: "CondicaoPagto"
-                  count:
-                    type: integer
-                    description: Quantidade de registros retornados nesta página.
-                    example: 2
-                  hasMore:
-                    type: boolean
-                    description: Indica se há mais registros além dos retornados.
-                    example: true
-                  status:
-                    type: string
-                    description: Status da requisição.
-                    example: "SUCCESS"
-                  message:
-                    type: string
-                    description: Mensagem adicional da API.
-                    example: "Dados retornados com sucesso"
-              example:
-                items:
-                  - codigo: "00000275"
-                    descricao: "20 dias sem juros"
-                    tipo: "DDL"
-                    prazos: "0"
-                    situacao: "ATIVO"
-                  - codigo: "00000277"
-                    descricao: "16 dias"
-                    tipo: "DDL"
-                    prazos: "0"
-                    situacao: "ATIVO"
-                totalCount: 74
-                limit: 2
-                offset: 1
-                filename: "CondicaoPagto"
-                count: 2
-                hasMore: true
-                status: "SUCCESS"
-                message: "Dados retornados com sucesso"
-        '401':
-          description: Erro de autenticação
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: "ERROR"
-                  mensagem:
-                    type: string
-                    example: "Autenticação inválida."
-              example:
-                status: "ERROR"
-                mensagem: "Autenticação inválida."
-                
-  /vendas/v3/ListaContaReceber:
-    get:
-      tags:
-        - vendas/v3
-      summary: Lista contas a receber
-      description: >
-        Retorna uma lista paginada de contas a receber, com dados como cliente, nota fiscal, pedido vinculado, valor, vencimento e situação da conta.
-      parameters:
-        - name: i_limit
-          in: query
-          description: Número máximo de registros retornados por página
-          required: false
-          schema:
-            type: integer
-            default: 100
-        - name: i_offset
-          in: query
-          description: Posição inicial da consulta atual (para paginação)
-          required: false
-          schema:
-            type: integer
-            default: 0
-        - name: cnpjcpfcliente
-          in: query
-          description: Documento CNPJ ou CPF do cliente, sem traços ou pontuações, apenas números.
-          required: false
+          description: Data inicial no formato YYYY-MM-DD
           schema:
             type: string
+            example: "2025-06-30"
+        - name: datafinal
+          in: query
+          required: false
+          description: Data final no formato YYYY-MM-DD
+          schema:
+            type: string
+            example: "2025-06-30"
         - name: situacao
           in: query
-          description: Situação referente a conta a receber.
+          required: false
+          description: Situação do pedido
+          schema:
+            type: string
+            enum: [digitacao, orcamento, autorizado, emitido, cancelado, faturado]
+            example: "faturado"
+        - name: vendedor
+          in: query
           required: false
           schema:
             type: string
-            enum: [LIQUIDADA,ABERTA,CANCELADA]
-      responses:
-        '200':
-          description: Retorno de sucesso com a lista de contas a receber.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    description: Lista de contas a receber.
-                    items:
-                      type: object
-                      properties:
-                        tipo:
-                          type: string
-                          description: Tipo de conta.
-                          example: "RECEBER"
-                        empresa:
-                          type: string
-                          description: CNPJ da empresa.
-                          example: "32604723000196"
-                        documento:
-                          type: string
-                          description: Número do documento ou boleto.
-                          example: "1185 001"
-                        parcela:
-                          type: integer
-                          nullable: true
-                          description: Número da parcela, se houver.
-                          example: 1
-                        cnpjcpfcliente:
-                          type: string
-                          description: CNPJ ou CPF do cliente.
-                          example: "04203802000230"
-                        dataemissao:
-                          type: string
-                          format: date
-                          description: Data de emissão do documento.
-                          example: "2025-05-09"
-                        datavencimento:
-                          type: string
-                          format: date
-                          description: Data de vencimento da conta.
-                          example: "2025-05-09"
-                        valorconta:
-                          type: number
-                          format: float
-                          description: Valor total da conta.
-                          example: 441.10
-                        saldoemaberto:
-                          type: number
-                          format: float
-                          description: Valor ainda em aberto.
-                          example: 441.10
-                        situacao:
-                          type: string
-                          description: Situação da conta.
-                          example: "ABERTA"
-                        notafiscal:
-                          type: array
-                          description: Lista de notas fiscais vinculadas.
-                          items:
-                            type: object
-                            properties:
-                              mod:
-                                type: string
-                                description: Modelo da nota fiscal.
-                                example: "01"
-                              serie:
-                                type: integer
-                                description: Série da nota fiscal.
-                                example: 1
-                              numero:
-                                type: integer
-                                description: Número da nota fiscal.
-                                example: 1185
-                        pedido:
-                          type: array
-                          description: Lista de pedidos vinculados à conta.
-                          items:
-                            type: object
-                            properties:
-                              numero:
-                                type: integer
-                                description: Número do pedido.
-                                example: 5994
-                              vendedor:
-                                type: string
-                                description: Nome ou código do vendedor.
-                                example: "ADM_SERVICOS"
-                        datainclusao:
-                          type: string
-                          format: date-time
-                          description: Data/hora em que o registro foi incluído.
-                          example: "2025-05-09 16:43:35"
-                        ultimaalteracao:
-                          type: string
-                          format: date-time
-                          nullable: true
-                          description: Data/hora da última alteração (se houver).
-                          example: "2025-05-12 10:54:53"
-                  totalCount:
-                    type: integer
-                    description: Total de registros disponíveis na base de dados.
-                    example: 7470
-                  limit:
-                    type: integer
-                    description: Número máximo de registros retornados por página.
-                    example: 2
-                  offset:
-                    type: integer
-                    description: Posição inicial da consulta atual (para paginação).
-                    example: 7455
-                  filename:
-                    type: string
-                    description: Nome do recurso/arquivo retornado.
-                    example: "ContasReceber"
-                  count:
-                    type: integer
-                    description: Quantidade de registros retornados nesta página.
-                    example: 2
-                  hasMore:
-                    type: boolean
-                    description: Indica se há mais registros além dos retornados.
-                    example: true
-                  status:
-                    type: string
-                    description: Status da requisição.
-                    example: "SUCCESS"
-                  message:
-                    type: string
-                    description: Mensagem adicional da API.
-                    example: "Dados retornados com sucesso"
-              example:
-                items:
-                  - tipo: "RECEBER"
-                    empresa: "32604723000196"
-                    documento: "1185 001"
-                    parcela: 1
-                    cnpjcpfcliente: "04203802000230"
-                    dataemissao: "2025-05-09"
-                    datavencimento: "2025-05-09"
-                    valorconta: 441.1
-                    saldoemaberto: 441.1
-                    situacao: "ABERTA"
-                    notafiscal:
-                      - mod: "01"
-                        serie: 1
-                        numero: 1185
-                    pedido:
-                      - numero: 5994
-                        vendedor: "ADM_SERVICOS"
-                    datainclusao: "2025-05-09 16:43:35"
-                  - tipo: "RECEBER"
-                    empresa: "32604723000196"
-                    documento: "12052025"
-                    cnpjcpfcliente: "04203802000230"
-                    dataemissao: "2025-05-30"
-                    datavencimento: "2025-05-31"
-                    valorconta: 21
-                    saldoemaberto: 21
-                    situacao: "ABERTA"
-                    datainclusao: "2025-05-12 10:52:09"
-                    ultimaalteracao: "2025-05-12 10:54:53"
-                totalCount: 7470
-                limit: 2
-                offset: 7455
-                filename: "ContasReceber"
-                count: 2
-                hasMore: true
-                status: "SUCCESS"
-                message: "Dados retornados com sucesso"
-        '401':
-          description: Erro de autenticação
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: "ERROR"
-                  mensagem:
-                    type: string
-                    example: "Autenticação inválida."
-              example:
-                status: "ERROR"
-                mensagem: "Autenticação inválida."
-
-  /vendas/v3/ListaFormaCobranca:
-    get:
-      tags:
-        - vendas/v3
-      summary: Lista formas de cobrança
-      description: >
-        Retorna uma lista paginada de formas de cobrança cadastradas, com informações como código, descrição, situação, data de inclusão e última alteração.
-      parameters:
-        - name: i_limit
-          in: query
-          description: Número máximo de registros retornados por página
-          required: false
-          schema:
-            type: integer
-            default: 100
-        - name: i_offset
-          in: query
-          description: Posição inicial da consulta atual (para paginação)
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        '200':
-          description: Retorno de sucesso com a lista de formas de cobrança.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    description: Lista de formas de cobrança.
-                    items:
-                      type: object
-                      properties:
-                        codigo:
-                          type: string
-                          description: Código da forma de cobrança.
-                          example: "PROP"
-                        empresa:
-                          type: string
-                          description: CNPJ da empresa.
-                          example: "32604723000196"
-                        descricao:
-                          type: string
-                          description: Descrição da forma de cobrança.
-                          example: "* Cobrança Própria *"
-                        situacao:
-                          type: string
-                          description: Situação da forma de cobrança.
-                          example: "ATIVO"
-                        datainclusao:
-                          type: string
-                          format: date-time
-                          description: Data/hora em que o registro foi incluído.
-                          example: "2021-01-29T15:16:11"
-                        ultimaalteracao:
-                          type: string
-                          format: date-time
-                          description: Data/hora da última alteração no registro.
-                          example: "2021-02-18T15:21:42"
-                  totalCount:
-                    type: integer
-                    description: Total de registros disponíveis na base de dados.
-                    example: 68
-                  limit:
-                    type: integer
-                    description: Número máximo de registros retornados por página.
-                    example: 2
-                  offset:
-                    type: integer
-                    description: Posição inicial da consulta atual (para paginação).
-                    example: 0
-                  filename:
-                    type: string
-                    description: Nome do recurso/arquivo retornado.
-                    example: "FormaCobranca"
-                  count:
-                    type: integer
-                    description: Quantidade de registros retornados nesta página.
-                    example: 2
-                  hasMore:
-                    type: boolean
-                    description: Indica se há mais registros além dos retornados.
-                    example: true
-                  status:
-                    type: string
-                    description: Status da requisição.
-                    example: "SUCCESS"
-                  message:
-                    type: string
-                    description: Mensagem adicional da API.
-                    example: "Dados retornados com sucesso"
-              example:
-                items:
-                  - codigo: "PROP"
-                    empresa: "32604723000196"
-                    descricao: "* Cobrança Própria *"
-                    situacao: "ATIVO"
-                    datainclusao: "2021-01-29T15:16:11"
-                    ultimaalteracao: "2021-02-18T15:21:42"
-                  - codigo: "ANTBB"
-                    empresa: "32604723000196"
-                    descricao: "ANTECIPADO B.B BRASIL"
-                    situacao: "INATIVO"
-                    datainclusao: "2021-03-25T09:49:23"
-                    ultimaalteracao: "2021-08-06T14:58:40"
-                totalCount: 68
-                limit: 2
-                offset: 0
-                filename: "FormaCobranca"
-                count: 2
-                hasMore: true
-                status: "SUCCESS"
-                message: "Dados retornados com sucesso"
-        '401':
-          description: Erro de autenticação
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: "ERROR"
-                  mensagem:
-                    type: string
-                    example: "Autenticação inválida."
-              example:
-                status: "ERROR"
-                mensagem: "Autenticação inválida."
-
-  /vendas/v3/ListaGrupoCliente:
-    get:
-      tags:
-        - vendas/v3
-      summary: Lista grupos de cliente
-      description: >
-        Retorna uma lista paginada de grupos de cliente cadastrados, com código e descrição.
-      parameters:
-        - name: i_limit
-          in: query
-          description: Número máximo de registros retornados por página
-          required: false
-          schema:
-            type: integer
-            default: 100
-        - name: i_offset
-          in: query
-          description: Posição inicial da consulta atual (para paginação)
-          required: false
-          schema:
-            type: integer
-            default: 0
-      responses:
-        '200':
-          description: Retorno de sucesso com a lista de grupos de cliente.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    description: Lista de grupos de cliente.
-                    items:
-                      type: object
-                      properties:
-                        codigo:
-                          type: string
-                          description: Código do grupo de cliente.
-                          example: "81"
-                        descricao:
-                          type: string
-                          description: Descrição do grupo de cliente.
-                          example: "Funcionários"
-                  totalCount:
-                    type: integer
-                    description: Total de registros disponíveis na base de dados.
-                    example: 10
-                  limit:
-                    type: integer
-                    description: Número máximo de registros retornados por página.
-                    example: 2
-                  offset:
-                    type: integer
-                    description: Posição inicial da consulta atual (para paginação).
-                    example: 0
-                  filename:
-                    type: string
-                    description: Nome do recurso/arquivo retornado.
-                    example: "GrupoCliente"
-                  count:
-                    type: integer
-                    description: Quantidade de registros retornados nesta página.
-                    example: 2
-                  hasMore:
-                    type: boolean
-                    description: Indica se há mais registros além dos retornados.
-                    example: true
-                  status:
-                    type: string
-                    description: Status da requisição.
-                    example: "SUCCESS"
-                  message:
-                    type: string
-                    description: Mensagem adicional da API.
-                    example: "Dados retornados com sucesso"
-              example:
-                items:
-                  - codigo: "81"
-                    descricao: "Funcionários"
-                  - codigo: "101"
-                    descricao: "Terceiros"
-                totalCount: 10
-                limit: 2
-                offset: 0
-                filename: "GrupoCliente"
-                count: 2
-                hasMore: true
-                status: "SUCCESS"
-                message: "Dados retornados com sucesso"
-        '401':
-          description: Erro de autenticação
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: "ERROR"
-                  mensagem:
-                    type: string
-                    example: "Autenticação inválida."
-              example:
-                status: "ERROR"
-                mensagem: "Autenticação inválida."
-
-  /vendas/v3/InclusaoCliente:
-    post:
-      tags:
-        - vendas/v3
-      summary: Inclusão de novo cliente
-      description: >
-        Permite cadastrar um novo cliente com dados completos, incluindo endereço, contatos e classificações.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                tipocliente:
-                  type: string
-                  enum: [JURIDICA, FISICA]
-                  example: "JURIDICA"
-                cnpjcpfcliente:
-                  type: string
-                  example: "04203802000230"
-                nomecliente:
-                  type: string
-                  example: "Nome da Empresa LTDA"
-                nomefantasia:
-                  type: string
-                  example: "Empresa Fantasia"
-                inscricaoestadual:
-                  type: string
-                  example: ""
-                inscricaomunicipal:
-                  type: string
-                  example: ""
-                rg:
-                  type: object
-                  properties:
-                    numero:
-                      type: string
-                      example: ""
-                endereco:
-                  type: object
-                  properties:
-                    rua:
-                      type: string
-                      example: "AVENIDA ENG HEITOR A E GARCIA"
-                    bairro:
-                      type: string
-                      example: "Perus"
-                    numero:
-                      type: string
-                      example: "772"
-                    complemento:
-                      type: string
-                      example: "778"
-                    cep:
-                      type: string
-                      example: "05588001"
-                    cidade:
-                      type: string
-                      example: "SAO PAULO"
-                    uf:
-                      type: string
-                      example: "SP"
-                    codigoibge:
-                      type: string
-                      example: "3550308"
-                enderecoentrega:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      rua:
-                        type: string
-                        example: "string"
-                      bairro:
-                        type: string
-                        example: "string"
-                      numero:
-                        type: string
-                        example: "string"
-                      complemento:
-                        type: string
-                        example: ""
-                      cep:
-                        type: string
-                        example: "string"
-                      cidade:
-                        type: string
-                        example: "string"
-                      uf:
-                        type: string
-                        example: "SP"
-                      codigoibge:
-                        type: string
-                        example: "string"
-                telefone:
-                  type: string
-                  example: "string"
-                email:
-                  type: string
-                  example: "string"
-                classificacao:
-                  type: object
-                  properties:
-                    grupocliente:
-                      type: string
-                      example: ""
-                    regiao:
-                      type: string
-                      example: "DW"
-                    segmento:
-                      type: string
-                      example: ""
-                contato:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      email:
-                        type: string
-                        example: "string"
-                      telefone:
-                        type: string
-                        example: "string"
-                      cargo:
-                        type: string
-                        example: "string"
-                      nome:
-                        type: string
-                        example: "string"
-                      departamento:
-                        type: string
-                        example: "string"
-                      classeemail:
-                        type: string
-                        example: "COM,VEN,NF"
-                personalizado:
-                  type: object
-                  properties:
-                    campo1:
-                      type: string
-                      example: ""
-                    campo2:
-                      type: string
-                      example: "string"
-                    campo3:
-                      type: string
-                      example: "string"
-                    campo4:
-                      type: string
-                      example: "string"
-                anotacoes:
-                  type: string
-                  example: "string"
-            example:
-              tipocliente: "JURIDICA"
-              cnpjcpfcliente: "04203802000230"
-              nomecliente: "Nome da Empresa LTDA"
-              nomefantasia: "Empresa Fantasia"
-              inscricaoestadual: ""
-              inscricaomunicipal: ""
-              rg:
-                numero: ""
-              endereco:
-                rua: "AVENIDA ENG HEITOR A E GARCIA"
-                bairro: "Perus"
-                numero: "772"
-                complemento: "778"
-                cep: "05588001"
-                cidade: "SAO PAULO"
-                uf: "SP"
-                codigoibge: "3550308"
-              enderecoentrega:
-                - rua: "string"
-                  bairro: "string"
-                  numero: "string"
-                  complemento: ""
-                  cep: "string"
-                  cidade: "string"
-                  uf: "SP"
-                  codigoibge: "string"
-              telefone: "string"
-              email: "string"
-              classificacao:
-                grupocliente: ""
-                regiao: "DW"
-                segmento: ""
-              contato:
-                - email: "string"
-                  telefone: "string"
-                  cargo: "string"
-                  nome: "string"
-                  classeemail: "COM,VEN,NF"
-                - email: ""
-                  telefone: "string"
-                  cargo: ""
-                  nome: ""
-                  departamento: "string"
-                  classeemail: "COM"
-              personalizado:
-                campo1: ""
-                campo2: "string"
-                campo3: "string"
-                campo4: "string"
-              anotacoes: "string"
-      responses:
-        '201':
-          description: Cliente incluído com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: "SUCCESS"
-                  message:
-                    type: string
-                    example: "Cliente incluído com sucesso"
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: "ERROR"
-                  message:
-                    type: string
-                    example: "Dados obrigatórios ausentes ou inválidos"
-                    
-  /vendas/v3/InclusaoCliente/Anexo:
-    post:
-      tags:
-        - vendas/v3
-      summary: Upload de anexo (arquivo binário) para inclusão de cliente
-      description: >
-        Faz o upload de um arquivo binário (como PDF, imagem ou planilha) relacionado à inclusão de cliente.  
-        Os metadados do anexo (nome, tipo e cliente) devem ser enviados via parâmetros na URI.
-      parameters:
-        - name: filename
-          in: query
-          required: true
-          description: Nome do arquivo enviado
-          schema:
-            type: string
-            example: "contrato_social.pdf"
-        - name: mimetype
-          in: query
-          required: true
-          description: Tipo MIME do conteúdo do arquivo
-          schema:
-            type: string
-            example: "application/pdf"
+            example: "DEMO"
         - name: cnpjcpfcliente
           in: query
-          required: true
-          description: CNPJ ou CPF do cliente vinculado ao anexo
+          required: false
           schema:
             type: string
-            example: "04203802000230"
-      requestBody:
-        required: true
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
-              description: Arquivo binário a ser enviado
+            example: "14174856478"
+        - name: dataautorizacao
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "2025-06-30"
       responses:
-        '201':
-          description: Arquivo anexado com sucesso
+        '200':
+          description: Lista de pedidos retornada com sucesso
           content:
             application/json:
               schema:
                 type: object
                 properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        numero:
+                          type: integer
+                          example: 5991
+                        empresa:
+                          type: string
+                          example: "32604723000196"
+                        cnpjcpfcliente:
+                          type: string
+                          example: "14174856478"
+                        vendedor:
+                          type: string
+                          example: "DEMO"
+                        datapedido:
+                          type: string
+                          format: date
+                          example: "2025-05-05"
+                        datavalidade:
+                          type: string
+                          format: date
+                          example: "2025-06-04"
+                        dataentregaprevista:
+                          type: string
+                          format: date
+                          example: "2025-05-20"
+                        dataautorizacao:
+                          type: string
+                          format: date-time
+                          example: "2025-05-05 23:00:07"
+                        dataenvio:
+                          type: string
+                          format: date-time
+                          example: "2025-05-05 23:00:13"
+                        tabelapreco:
+                          type: string
+                          example: "LIVRE"
+                        condicaopagamento:
+                          type: string
+                          example: " 00000270"
+                        valortotalpedido:
+                          type: number
+                          format: float
+                          example: 187.5
+                        situacao:
+                          type: string
+                          example: "FATURADO"
+                        personalizado:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              campo1:
+                                type: string
+                                nullable: true
+                              campo2:
+                                type: string
+                                nullable: true
+                              campo3:
+                                type: string
+                                nullable: true
+                              campo4:
+                                type: string
+                                nullable: true
+                              campo5:
+                                type: string
+                                nullable: true
+                              campo6:
+                                type: string
+                                nullable: true
+                  totalCount:
+                    type: integer
+                    example: 27
+                  limit:
+                    type: integer
+                    example: 100
+                  offset:
+                    type: integer
+                    example: 0
+                  filename:
+                    type: string
+                    example: "ListaPedido"
+                  count:
+                    type: integer
+                    example: 1
+                  hasMore:
+                    type: boolean
+                    example: true
                   status:
                     type: string
                     example: "SUCCESS"
                   message:
                     type: string
-                    example: "Arquivo enviado com sucesso"
-        '400':
-          description: Erro de requisição (arquivo ou parâmetros inválidos)
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: "ERROR"
-                  message:
-                    type: string
-                    example: "Parâmetros obrigatórios ausentes ou arquivo inválido"
-
-  /vendas/v3/InclusaoOrcamento:
-    post:
+                    example: "Dados retornados com sucesso"
+  /vendas/v3/ListaPedido/{numero}:
+    get:
       tags:
         - vendas/v3
-      summary: Inclusão de orçamento
-      description: >
-        Cria um novo orçamento para o cliente, incluindo dados comerciais, condições de pagamento,
-        produtos e campos personalizados.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                empresa:
-                  type: string
-                  example: "32604723000196"
-                cnpjcpfcliente:
-                  type: string
-                  nullable: true
-                  example: null
-                vendedor:
-                  type: string
-                  example: "LARISSA.DEMO"
-                dataorcamento:
-                  type: string
-                  format: date
-                  example: "2023-07-03"
-                datavalidade:
-                  type: string
-                  format: date
-                  example: "2023-08-30"
-                dataentregaprevista:
-                  type: string
-                  format: date
-                  example: "2023-08-01"
-                tabelapreco:
-                  type: string
-                  example: "MATERIAIS DE ESCRITORIO"
-                condicaopagamento:
-                  type: string
-                  example: "00000270"
-                valortotalorcamento:
-                  type: number
-                  format: float
-                  example: 130
-                valordesconto:
-                  type: number
-                  format: float
-                  example: 40.09
-                modalidadefrete:
-                  type: integer
-                  example: 0
-                valorfrete:
-                  type: number
-                  format: float
-                  example: 0
-                observacao:
-                  type: string
-                  nullable: true
-                  example: null
-                produtos:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      item:
-                        type: integer
-                        example: 1
-                      codigo:
-                        type: string
-                        example: "005340302"
-                      qtdevenda:
-                        type: number
-                        format: float
-                        example: 1
-                      valorvenda:
-                        type: number
-                        format: float
-                        example: 100
-                      valordesconto:
-                        type: number
-                        format: float
-                        example: 0
-                personalizado:
-                  type: object
-                  properties:
-                    campo1:
-                      type: string
-                      nullable: true
-                      example: null
-                    campo2:
-                      type: string
-                      nullable: true
-                      example: null
-                    campo3:
-                      type: string
-                      nullable: true
-                      example: null
-                    campo4:
-                      type: string
-                      example: "12345"
-                    campo5:
-                      type: string
-                      nullable: true
-                      example: null
-                    campo6:
-                      type: string
-                      nullable: true
-                      example: null
+      summary: Consulta detalhes de um pedido específico
+      description: Retorna os dados detalhados de um pedido com base no número informado.
+      parameters:
+        - name: numero
+          in: path
+          required: true
+          description: Número do pedido
+          schema:
+            type: integer
+            example: 6019
       responses:
-        '201':
-          description: Orçamento incluído com sucesso
+        '200':
+          description: Pedido retornado com sucesso
           content:
             application/json:
               schema:
@@ -1203,23 +253,123 @@ paths:
                   status:
                     type: string
                     example: "SUCCESS"
-                  message:
-                    type: string
-                    example: "Orçamento registrado com sucesso"
-        '400':
-          description: Erro de validação ou dados inválidos
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: "ERROR"
-                  message:
-                    type: string
-                    example: "Campos obrigatórios ausentes ou mal formatados"
-
+                  item:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        numero:
+                          type: integer
+                          example: 6019
+                        empresa:
+                          type: string
+                          example: "32604723000196"
+                        cnpjcpfcliente:
+                          type: string
+                          nullable: true
+                        vendedor:
+                          type: string
+                          example: "CICLO.DEMO"
+                        datapedido:
+                          type: string
+                          format: date
+                          example: "2025-06-03"
+                        datavalidade:
+                          type: string
+                          format: date
+                          example: "2025-07-03"
+                        dataentregaprevista:
+                          type: string
+                          format: date
+                          example: "2025-06-02"
+                        dataautorizacao:
+                          type: string
+                          format: date-time
+                          example: "2025-06-03 11:03:13"
+                        dataenvio:
+                          type: string
+                          nullable: true
+                        tabelapreco:
+                          type: string
+                          example: "TESTAR SUCATA"
+                        condicaopagamento:
+                          type: string
+                          example: " 00000386"
+                        formacobranca:
+                          type: string
+                          nullable: true
+                        valortotalpedido:
+                          type: number
+                          format: float
+                          example: 201
+                        valordesconto:
+                          type: number
+                          format: float
+                          example: 0
+                        modalidadefrete:
+                          type: integer
+                          example: 9
+                        valorfrete:
+                          type: number
+                          format: float
+                          example: 0
+                        observacaopedido:
+                          type: string
+                          nullable: true
+                        observacaonota:
+                          type: string
+                          nullable: true
+                        situacao:
+                          type: string
+                          example: "AUTORIZADO"
+                        produto:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              item:
+                                type: integer
+                                example: 1
+                              codigo:
+                                type: string
+                                example: "REVMAD60"
+                              qtdevenda:
+                                type: integer
+                                example: 1
+                              valorvenda:
+                                type: number
+                                format: float
+                                example: 201
+                              valordesconto:
+                                type: number
+                                format: float
+                                example: 0
+                              situacao:
+                                type: string
+                                example: "ABERTO"
+                        personalizado:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              campo1:
+                                type: string
+                                example: "Francis"
+                              campo2:
+                                type: string
+                                example: "Terceirizada"
+                              campo3:
+                                type: string
+                                example: "0.05"
+                              campo4:
+                                type: string
+                                nullable: true
+                              campo5:
+                                type: string
+                                nullable: true
+                              campo6:
+                                type: string
+                                nullable: true
   /vendas/v3/InclusaoPedido:
     post:
       tags:
@@ -1233,6 +383,11 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - empresa
+                - datapedido
+                - datavalidade
+                - dataentregaprevista
               properties:
                 empresa:
                   type: string
@@ -1291,6 +446,11 @@ paths:
                   example: null
                 produto:
                   type: array
+                  required:
+                    - codigo
+                    - qtdevenda
+                    - valorvenda
+                    - valordesconto
                   items:
                     type: object
                     properties:
@@ -1368,6 +528,422 @@ paths:
                   message:
                     type: string
                     example: "Erro ao incluir pedido"
+  /vendas/v3/ListaOrcamento:
+    get:
+      tags:
+        - vendas/v3
+      summary: Lista orçamentos com filtros
+      description: Retorna uma lista de orçamentos filtrados por datas, situação, vendedor ou cliente.
+      parameters:
+        - name: datainicial
+          in: query
+          description: Data inicial no formato YYYY-MM-DD
+          required: false
+          schema:
+            type: string
+            example: "2025-06-30"
+        - name: datafinal
+          in: query
+          description: Data final no formato YYYY-MM-DD
+          required: false
+          schema:
+            type: string
+            example: "2025-06-30"
+        - name: situacao
+          in: query
+          description: Situação do orçamento
+          required: false
+          schema:
+            type: string
+            enum: [cancelado, autorizado, perdido, digitacao, encerrado]
+            example: "cancelado"
+        - name: vendedor
+          in: query
+          description: Nome do vendedor responsável
+          required: false
+          schema:
+            type: string
+            example: "ADMINISTRADOR"
+        - name: cnpjcpfcliente
+          in: query
+          description: CNPJ ou CPF do cliente
+          required: false
+          schema:
+            type: string
+            example: "13745643000106"
+        - name: dataenvio
+          in: query
+          description: Data de envio do orçamento (formato YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            example: "2025-06-30"
+      responses:
+        '200':
+          description: Lista de orçamentos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        empresa:
+                          type: string
+                          example: "32604723000196"
+                        cnpjcpfcliente:
+                          type: string
+                          example: "13745643000106"
+                        vendedor:
+                          type: string
+                          example: "ADMINISTRADOR"
+                        datapedido:
+                          type: string
+                          format: date
+                          example: "2013-08-23"
+                        tabelapreco:
+                          type: string
+                          example: "LIVRE"
+                        condicaopagamento:
+                          type: string
+                          example: " 00000294"
+                        valortotalorcamento:
+                          type: number
+                          format: float
+                          example: 384
+                        situacao:
+                          type: string
+                          example: "CANCELADO"
+                        personalizado:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              campo1:
+                                type: string
+                                nullable: true
+                              campo2:
+                                type: string
+                                nullable: true
+                              campo3:
+                                type: string
+                                nullable: true
+                              campo4:
+                                type: string
+                                nullable: true
+                              campo5:
+                                type: string
+                                nullable: true
+                              campo6:
+                                type: string
+                                nullable: true
+                  totalCount:
+                    type: integer
+                    example: 439
+                  limit:
+                    type: integer
+                    example: 100
+                  offset:
+                    type: integer
+                    example: 0
+                  filename:
+                    type: string
+                    example: "ListaOrcamento"
+                  count:
+                    type: integer
+                    example: 1
+                  hasMore:
+                    type: boolean
+                    example: true
+                  status:
+                    type: string
+                    example: "SUCCESS"
+                  message:
+                    type: string
+                    example: "Dados retornados com sucesso"
+  
+  /vendas/v3/ListaOrcamento/{numero}:
+    get:
+      tags:
+        - vendas/v3
+      summary: Consulta detalhes de um orçamento
+      description: Retorna os dados completos de um orçamento específico pelo número.
+      parameters:
+        - name: numero
+          in: path
+          required: true
+          description: Número do orçamento
+          schema:
+            type: integer
+            example: 50495
+      responses:
+        '200':
+          description: Detalhes do orçamento retornados com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  item:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        numero:
+                          type: integer
+                          example: 50495
+                        empresa:
+                          type: string
+                          example: "32604723000196"
+                        cnpjcpfcliente:
+                          type: string
+                          example: "14174856478"
+                        vendedor:
+                          type: string
+                          example: "LARISSA.DEMO"
+                        datapedido:
+                          type: string
+                          format: date
+                          example: "2025-02-27"
+                        datavalidade:
+                          type: string
+                          format: date
+                          example: "2025-04-04"
+                        dataenvio:
+                          type: string
+                          format: date
+                          nullable: true
+                          example: null
+                        tabelapreco:
+                          type: string
+                          example: "TESTAR SUCATA"
+                        condicaopagamento:
+                          type: string
+                          nullable: true
+                          example: null
+                        valortotalorcamento:
+                          type: number
+                          format: float
+                          example: 201
+                        valordesconto:
+                          type: number
+                          format: float
+                          example: 0
+                        modalidadefrete:
+                          type: integer
+                          example: 9
+                        valorfrete:
+                          type: number
+                          format: float
+                          example: 0
+                        observacao:
+                          type: string
+                          nullable: true
+                          example: null
+                        situacao:
+                          type: string
+                          example: "DIGITACAO"
+                        produto:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              item:
+                                type: integer
+                                example: 1
+                              codigo:
+                                type: string
+                                example: "REVMAD60"
+                              qtdevenda:
+                                type: number
+                                format: float
+                                example: 1
+                              valorvenda:
+                                type: number
+                                format: float
+                                example: 201
+                              valordesconto:
+                                type: number
+                                format: float
+                                example: 0
+                              situacao:
+                                type: string
+                                example: "ABERTO"
+                        personalizado:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              campo1:
+                                type: string
+                                nullable: true
+                              campo2:
+                                type: string
+                                nullable: true
+                              campo3:
+                                type: string
+                                nullable: true
+                              campo4:
+                                type: string
+                                nullable: true
+                              campo5:
+                                type: string
+                                nullable: true
+                              campo6:
+                                type: string
+                                nullable: true
+                  status:
+                    type: string
+                    example: "SUCCESS"
+  /vendas/v3/InclusaoOrcamento:
+    post:
+      tags:
+        - vendas/v3
+      summary: Inclusão de orçamento
+      description: >
+        Cria um novo orçamento para o cliente, incluindo dados comerciais, condições de pagamento,
+        produtos e campos personalizados.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - empresa
+                - cnpjcpfcliente
+                - vendedor
+                - dataorcamento
+              properties:
+                empresa:
+                  type: string
+                  example: "32604723000196"
+                cnpjcpfcliente:
+                  type: string
+                  nullable: true
+                  example: null
+                vendedor:
+                  type: string
+                  example: "LARISSA.DEMO"
+                dataorcamento:
+                  type: string
+                  format: date
+                  example: "2023-07-03"
+                datavalidade:
+                  type: string
+                  format: date
+                  example: "2023-08-30"
+                dataentregaprevista:
+                  type: string
+                  format: date
+                  example: "2023-08-01"
+                tabelapreco:
+                  type: string
+                  example: "MATERIAIS DE ESCRITORIO"
+                condicaopagamento:
+                  type: string
+                  example: "00000270"
+                valortotalorcamento:
+                  type: number
+                  format: float
+                  example: 130
+                valordesconto:
+                  type: number
+                  format: float
+                  example: 40.09
+                modalidadefrete:
+                  type: integer
+                  example: 0
+                valorfrete:
+                  type: number
+                  format: float
+                  example: 0
+                observacao:
+                  type: string
+                  nullable: true
+                  example: null
+                produtos:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - codigo
+                      - qtdevenda
+                    properties:
+                      item:
+                        type: integer
+                        example: 1
+                      codigo:
+                        type: string
+                        example: "005340302"
+                      qtdevenda:
+                        type: number
+                        format: float
+                        example: 1
+                      valorvenda:
+                        type: number
+                        format: float
+                        example: 100
+                      valordesconto:
+                        type: number
+                        format: float
+                        example: 0
+                personalizado:
+                  type: object
+                  properties:
+                    campo1:
+                      type: string
+                      nullable: true
+                      example: null
+                    campo2:
+                      type: string
+                      nullable: true
+                      example: null
+                    campo3:
+                      type: string
+                      nullable: true
+                      example: null
+                    campo4:
+                      type: string
+                      example: "12345"
+                    campo5:
+                      type: string
+                      nullable: true
+                      example: null
+                    campo6:
+                      type: string
+                      nullable: true
+                      example: null
+      responses:
+        '201':
+          description: Orçamento incluído com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "SUCCESS"
+                  message:
+                    type: string
+                    example: "Orçamento registrado com sucesso"
+        '400':
+          description: Erro de validação ou dados inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ERROR"
+                  message:
+                    type: string
+                    example: "Campos obrigatórios ausentes ou mal formatados"
   /vendas/v3/ListaClientes:
     get:
       tags:
@@ -1385,12 +961,14 @@ paths:
           in: query
           required: false
           description: Data inclusão do pedido no formato YYYY-MM-DD
+          example: 2025-06-30
           schema:
             type: string
         - name: dataalteracao
           in: query
           required: false
           description: Data da última alteração do pedido no formato YYYY-MM-DD
+          example: 2025-06-30
           schema:
             type: string
         - name: cnpjcpfcliente
@@ -1575,7 +1153,7 @@ paths:
                     example: 2515
                   limit:
                     type: integer
-                    example: 2
+                    example: 100
                   offset:
                     type: integer
                     example: 0
@@ -1594,7 +1172,1003 @@ paths:
                   message:
                     type: string
                     example: "Dados retornados com sucesso"
+  /vendas/v3/InclusaoCliente:
+    post:
+      tags:
+        - vendas/v3
+      summary: Inclusão de novo cliente
+      description: >
+        Permite cadastrar um novo cliente com dados completos, incluindo endereço, contatos e classificações.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tipocliente:
+                  type: string
+                  enum: [JURIDICA, FISICA]
+                  example: "JURIDICA"
+                cnpjcpfcliente:
+                  type: string
+                  example: "04203802000230"
+                nomecliente:
+                  type: string
+                  example: "Nome da Empresa LTDA"
+                nomefantasia:
+                  type: string
+                  example: "Empresa Fantasia"
+                inscricaoestadual:
+                  type: string
+                  example: ""
+                inscricaomunicipal:
+                  type: string
+                  example: ""
+                rg:
+                  type: object
+                  properties:
+                    numero:
+                      type: string
+                      example: ""
+                    uf:
+                      type: string
+                      example: "SP"
+                    dataexpedicao:
+                      type: string
+                      example: "yyyy-mm-dd hh:mi:ss"
+                endereco:
+                  type: object
+                  properties:
+                    rua:
+                      type: string
+                      example: "AVENIDA ENG HEITOR A E GARCIA"
+                    bairro:
+                      type: string
+                      example: "Perus"
+                    numero:
+                      type: string
+                      example: "772"
+                    complemento:
+                      type: string
+                      example: "778"
+                    cep:
+                      type: string
+                      example: "05588001"
+                    cidade:
+                      type: string
+                      example: "SAO PAULO"
+                    uf:
+                      type: string
+                      example: "SP"
+                    codigoibge:
+                      type: string
+                      example: "3550308"
+                enderecoentrega:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      rua:
+                        type: string
+                        example: "string"
+                      bairro:
+                        type: string
+                        example: "string"
+                      numero:
+                        type: string
+                        example: "string"
+                      complemento:
+                        type: string
+                        example: ""
+                      cep:
+                        type: string
+                        example: "string"
+                      cidade:
+                        type: string
+                        example: "string"
+                      uf:
+                        type: string
+                        example: "SP"
+                      codigoibge:
+                        type: string
+                        example: "string"
+                telefone:
+                  type: string
+                  example: "string"
+                email:
+                  type: string
+                  example: "string"
+                classificacao:
+                  type: object
+                  properties:
+                    grupocliente:
+                      type: string
+                      example: ""
+                    regiao:
+                      type: string
+                      example: "DW"
+                    segmento:
+                      type: string
+                      example: ""
+                contato:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        example: "string"
+                      telefone:
+                        type: string
+                        example: "string"
+                      cargo:
+                        type: string
+                        example: "string"
+                      nome:
+                        type: string
+                        example: "string"
+                      departamento:
+                        type: string
+                        example: "string"
+                      classeemail:
+                        type: string
+                        example: "COM,VEN,NF"
+                personalizado:
+                  type: object
+                  properties:
+                    campo1:
+                      type: string
+                      example: ""
+                    campo2:
+                      type: string
+                      example: "string"
+                    campo3:
+                      type: string
+                      example: "string"
+                    campo4:
+                      type: string
+                      example: "string"
+                anotacoes:
+                  type: string
+                  example: "string"
+            example:
+              tipocliente: "JURIDICA"
+              cnpjcpfcliente: "04203802000230"
+              nomecliente: "Nome da Empresa LTDA"
+              nomefantasia: "Empresa Fantasia"
+              inscricaoestadual: ""
+              inscricaomunicipal: ""
+              rg:
+                numero: "498576621"
+                uf: "SP"
+                dataexpedicao: "2025-06-30 13:30:12"
+              endereco:
+                rua: "AVENIDA ENG HEITOR A E GARCIA"
+                bairro: "Perus"
+                numero: "772"
+                complemento: "778"
+                cep: "05588001"
+                cidade: "SAO PAULO"
+                uf: "SP"
+                codigoibge: "3550308"
+              enderecoentrega:
+                - rua: "string"
+                  bairro: "string"
+                  numero: "string"
+                  complemento: ""
+                  cep: "string"
+                  cidade: "string"
+                  uf: "SP"
+                  codigoibge: "string"
+              telefone: "string"
+              email: "string"
+              classificacao:
+                grupocliente: ""
+                regiao: "DW"
+                segmento: ""
+              contato:
+                - email: "string"
+                  telefone: "string"
+                  cargo: "string"
+                  nome: "string"
+                  classeemail: "COM,VEN,NF"
+                - email: ""
+                  telefone: "string"
+                  cargo: ""
+                  nome: ""
+                  departamento: "string"
+                  classeemail: "COM"
+              personalizado:
+                campo1: ""
+                campo2: "string"
+                campo3: "string"
+                campo4: "string"
+              anotacoes: "string"
+      responses:
+        '201':
+          description: Cliente incluído com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "SUCCESS"
+                  message:
+                    type: string
+                    example: "Cliente incluído com sucesso"
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ERROR"
+                  message:
+                    type: string
+                    example: "Dados obrigatórios ausentes ou inválidos"
+                    
+  /vendas/v3/InclusaoCliente/Anexo:
+    post:
+      tags:
+        - vendas/v3
+      summary: Upload de anexo (arquivo binário) para inclusão de cliente
+      description: >
+        Faz o upload de um arquivo binário (como PDF, imagem ou planilha) relacionado à inclusão de cliente.  
+        Os metadados do anexo (nome, tipo e cliente) devem ser enviados via parâmetros na URI.
+      parameters:
+        - name: filename
+          in: query
+          required: true
+          description: Nome do arquivo enviado
+          schema:
+            type: string
+            example: "contrato_social.pdf"
+        - name: mimetype
+          in: query
+          required: true
+          description: Tipo MIME do conteúdo do arquivo
+          schema:
+            type: string
+            example: "application/pdf"
+        - name: cnpjcpfcliente
+          in: query
+          required: true
+          description: CNPJ ou CPF do cliente vinculado ao anexo
+          schema:
+            type: string
+            example: "04203802000230"
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+              description: Arquivo binário a ser enviado
+      responses:
+        '201':
+          description: Arquivo anexado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "SUCCESS"
+                  message:
+                    type: string
+                    example: "Arquivo enviado com sucesso"
+        '400':
+          description: Erro de requisição (arquivo ou parâmetros inválidos)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ERROR"
+                  message:
+                    type: string
+                    example: "Parâmetros obrigatórios ausentes ou arquivo inválido"
+  /vendas/v3/ListaCategoriaProduto:
+    get:
+      tags:
+        - vendas/v3
+      summary: Lista categorias de produto
+      description: >
+        Retorna uma lista paginada de categorias de produtos, com metadados sobre a quantidade total, controle de paginação,
+        e nome do arquivo de origem. Ideal para interfaces com rolagem ou filtros.
+      parameters:
+        - name: i_limit
+          in: query
+          description: Número máximo de registros retornados por página
+          required: false
+          schema:
+            type: integer
+            default: 100
+        - name: i_offset
+          in: query
+          description: Posição inicial da consulta atual (para paginação)
+          required: false
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Retorno de sucesso com a lista de categorias de produto.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    description: Lista de categorias de produto.
+                    items:
+                      type: object
+                      properties:
+                        codigo:
+                          type: string
+                          description: Código da categoria.
+                          example: "194"
+                        descricao:
+                          type: string
+                          description: Descrição da categoria.
+                          example: "Material"
+                        codigopai:
+                          type: string
+                          nullable: true
+                          description: Código da categoria pai (se existir).
+                          example: "61"
+                  totalCount:
+                    type: integer
+                    description: Total de registros disponíveis na base de dados.
+                    example: 57
+                  limit:
+                    type: integer
+                    description: Número máximo de registros retornados por página.
+                    example: 100
+                  offset:
+                    type: integer
+                    description: Posição inicial da consulta atual (para paginação).
+                    example: 0
+                  filename:
+                    type: string
+                    description: Nome do recurso/arquivo retornado.
+                    example: "ListaCategoriaProduto"
+                  count:
+                    type: integer
+                    description: Quantidade de registros retornados nesta página.
+                    example: 2
+                  hasMore:
+                    type: boolean
+                    description: Indica se há mais registros além dos retornados.
+                    example: true
+                  status:
+                    type: string
+                    description: Status da requisição.
+                    example: "SUCCESS"
+                  message:
+                    type: string
+                    description: Mensagem adicional da API.
+                    example: "Dados retornados com sucesso"
+              example:
+                items:
+                  - codigo: "194"
+                    descricao: "Material"
+                    codigopai: "61"
+                  - codigo: "195"
+                    descricao: "Sólido"
+                    codigopai: "61"
+                totalCount: 57
+                limit: 2
+                offset: 0
+                filename: "ListaCategoriaProduto"
+                count: 2
+                hasMore: true
+                status: "SUCCESS"
+                message: "Dados retornados com sucesso"
+        '401':
+          description: Erro de autenticação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ERROR"
+                  mensagem:
+                    type: string
+                    example: "Autenticação inválida."
+              example:
+                status: "ERROR"
+                mensagem: "Autenticação inválida."
 
+  /vendas/v3/ListaCondicaoPagto:
+    get:
+      tags:
+        - vendas/v3
+      summary: Lista condições de pagamento
+      description: >
+        Retorna uma lista paginada de condições de pagamento, com metadados sobre a quantidade total, controle de paginação,
+        e nome do arquivo de origem. Ideal para interfaces com rolagem ou filtros.
+      parameters:
+        - name: i_limit
+          in: query
+          description: Número máximo de registros retornados por página
+          required: false
+          schema:
+            type: integer
+            default: 100
+        - name: i_offset
+          in: query
+          description: Posição inicial da consulta atual (para paginação)
+          required: false
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Retorno de sucesso com a lista de condições de pagamento.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    description: Lista de condições de pagamento.
+                    items:
+                      type: object
+                      properties:
+                        codigo:
+                          type: string
+                          description: Código da condição de pagamento.
+                          example: "00000275"
+                        descricao:
+                          type: string
+                          description: Descrição da condição de pagamento.
+                          example: "20 dias sem juros"
+                        tipo:
+                          type: string
+                          description: Tipo da condição.
+                          example: "DDL"
+                        prazos:
+                          type: string
+                          description: Informação de prazos.
+                          example: "0"
+                        situacao:
+                          type: string
+                          description: Situação da condição.
+                          example: "ATIVO"
+                  totalCount:
+                    type: integer
+                    description: Total de registros disponíveis na base de dados.
+                    example: 74
+                  limit:
+                    type: integer
+                    description: Número máximo de registros retornados por página.
+                    example: 2
+                  offset:
+                    type: integer
+                    description: Posição inicial da consulta atual (para paginação).
+                    example: 1
+                  filename:
+                    type: string
+                    description: Nome do recurso/arquivo retornado.
+                    example: "ListaCondicaoPagto"
+                  count:
+                    type: integer
+                    description: Quantidade de registros retornados nesta página.
+                    example: 2
+                  hasMore:
+                    type: boolean
+                    description: Indica se há mais registros além dos retornados.
+                    example: true
+                  status:
+                    type: string
+                    description: Status da requisição.
+                    example: "SUCCESS"
+                  message:
+                    type: string
+                    description: Mensagem adicional da API.
+                    example: "Dados retornados com sucesso"
+              example:
+                items:
+                  - codigo: "00000275"
+                    descricao: "20 dias sem juros"
+                    tipo: "DDL"
+                    prazos: "0"
+                    situacao: "ATIVO"
+                  - codigo: "00000277"
+                    descricao: "16 dias"
+                    tipo: "DDL"
+                    prazos: "0"
+                    situacao: "ATIVO"
+                totalCount: 74
+                limit: 2
+                offset: 1
+                filename: "ListaCondicaoPagto"
+                count: 2
+                hasMore: true
+                status: "SUCCESS"
+                message: "Dados retornados com sucesso"
+        '401':
+          description: Erro de autenticação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ERROR"
+                  mensagem:
+                    type: string
+                    example: "Autenticação inválida."
+              example:
+                status: "ERROR"
+                mensagem: "Autenticação inválida."
+                
+  /vendas/v3/ListaContaReceber:
+    get:
+      tags:
+        - vendas/v3
+      summary: Lista contas a receber
+      description: >
+        Retorna uma lista paginada de contas a receber, com dados como cliente, nota fiscal, pedido vinculado, valor, vencimento e situação da conta.
+      parameters:
+        - name: i_limit
+          in: query
+          description: Número máximo de registros retornados por página
+          required: false
+          schema:
+            type: integer
+            default: 100
+        - name: i_offset
+          in: query
+          description: Posição inicial da consulta atual (para paginação)
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: cnpjcpfcliente
+          in: query
+          description: Documento CNPJ ou CPF do cliente, sem traços ou pontuações, apenas números.
+          required: false
+          schema:
+            type: string
+          example: "19081292000162"
+        - name: situacao
+          in: query
+          description: Situação referente a conta a receber.
+          required: false
+          schema:
+            type: string
+            enum: [LIQUIDADA,ABERTA,CANCELADA]
+      responses:
+        '200':
+          description: Retorno de sucesso com a lista de contas a receber.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    description: Lista de contas a receber.
+                    items:
+                      type: object
+                      properties:
+                        tipo:
+                          type: string
+                          description: Tipo de conta.
+                          example: "RECEBER"
+                        empresa:
+                          type: string
+                          description: CNPJ da empresa.
+                          example: "32604723000196"
+                        documento:
+                          type: string
+                          description: Número do documento ou boleto.
+                          example: "1185 001"
+                        parcela:
+                          type: integer
+                          nullable: true
+                          description: Número da parcela, se houver.
+                          example: 1
+                        cnpjcpfcliente:
+                          type: string
+                          description: CNPJ ou CPF do cliente.
+                          example: "04203802000230"
+                        dataemissao:
+                          type: string
+                          format: date
+                          description: Data de emissão do documento.
+                          example: "2025-05-09"
+                        datavencimento:
+                          type: string
+                          format: date
+                          description: Data de vencimento da conta.
+                          example: "2025-05-09"
+                        valorconta:
+                          type: number
+                          format: float
+                          description: Valor total da conta.
+                          example: 441.10
+                        saldoemaberto:
+                          type: number
+                          format: float
+                          description: Valor ainda em aberto.
+                          example: 441.10
+                        situacao:
+                          type: string
+                          description: Situação da conta.
+                          example: "ABERTA"
+                        notafiscal:
+                          type: array
+                          description: Lista de notas fiscais vinculadas.
+                          items:
+                            type: object
+                            properties:
+                              mod:
+                                type: string
+                                description: Modelo da nota fiscal.
+                                example: "01"
+                              serie:
+                                type: integer
+                                description: Série da nota fiscal.
+                                example: 1
+                              numero:
+                                type: integer
+                                description: Número da nota fiscal.
+                                example: 1185
+                        pedido:
+                          type: array
+                          description: Lista de pedidos vinculados à conta.
+                          items:
+                            type: object
+                            properties:
+                              numero:
+                                type: integer
+                                description: Número do pedido.
+                                example: 5994
+                              vendedor:
+                                type: string
+                                description: Nome ou código do vendedor.
+                                example: "ADM_SERVICOS"
+                        datainclusao:
+                          type: string
+                          format: date-time
+                          description: Data/hora em que o registro foi incluído.
+                          example: "2025-05-09 16:43:35"
+                        ultimaalteracao:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          description: Data/hora da última alteração (se houver).
+                          example: "2025-05-12 10:54:53"
+                  totalCount:
+                    type: integer
+                    description: Total de registros disponíveis na base de dados.
+                    example: 7470
+                  limit:
+                    type: integer
+                    description: Número máximo de registros retornados por página.
+                    example: 2
+                  offset:
+                    type: integer
+                    description: Posição inicial da consulta atual (para paginação).
+                    example: 7455
+                  filename:
+                    type: string
+                    description: Nome do recurso/arquivo retornado.
+                    example: "ListaContaReceber"
+                  count:
+                    type: integer
+                    description: Quantidade de registros retornados nesta página.
+                    example: 2
+                  hasMore:
+                    type: boolean
+                    description: Indica se há mais registros além dos retornados.
+                    example: true
+                  status:
+                    type: string
+                    description: Status da requisição.
+                    example: "SUCCESS"
+                  message:
+                    type: string
+                    description: Mensagem adicional da API.
+                    example: "Dados retornados com sucesso"
+              example:
+                items:
+                  - tipo: "RECEBER"
+                    empresa: "32604723000196"
+                    documento: "1185 001"
+                    parcela: 1
+                    cnpjcpfcliente: "04203802000230"
+                    dataemissao: "2025-05-09"
+                    datavencimento: "2025-05-09"
+                    valorconta: 441.1
+                    saldoemaberto: 441.1
+                    situacao: "ABERTA"
+                    notafiscal:
+                      - mod: "01"
+                        serie: 1
+                        numero: 1185
+                    pedido:
+                      - numero: 5994
+                        vendedor: "ADM_SERVICOS"
+                    datainclusao: "2025-05-09 16:43:35"
+                  - tipo: "RECEBER"
+                    empresa: "32604723000196"
+                    documento: "12052025"
+                    cnpjcpfcliente: "04203802000230"
+                    dataemissao: "2025-05-30"
+                    datavencimento: "2025-05-31"
+                    valorconta: 21
+                    saldoemaberto: 21
+                    situacao: "ABERTA"
+                    datainclusao: "2025-05-12 10:52:09"
+                    ultimaalteracao: "2025-05-12 10:54:53"
+                totalCount: 7470
+                limit: 2
+                offset: 7455
+                filename: "ListaContaReceber"
+                count: 2
+                hasMore: true
+                status: "SUCCESS"
+                message: "Dados retornados com sucesso"
+        '401':
+          description: Erro de autenticação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ERROR"
+                  mensagem:
+                    type: string
+                    example: "Autenticação inválida."
+              example:
+                status: "ERROR"
+                mensagem: "Autenticação inválida."
+
+  /vendas/v3/ListaFormaCobranca:
+    get:
+      tags:
+        - vendas/v3
+      summary: Lista formas de cobrança
+      description: >
+        Retorna uma lista paginada de formas de cobrança cadastradas, com informações como código, descrição, situação, data de inclusão e última alteração.
+      parameters:
+        - name: i_limit
+          in: query
+          description: Número máximo de registros retornados por página
+          required: false
+          schema:
+            type: integer
+            default: 100
+        - name: i_offset
+          in: query
+          description: Posição inicial da consulta atual (para paginação)
+          required: false
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Retorno de sucesso com a lista de formas de cobrança.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    description: Lista de formas de cobrança.
+                    items:
+                      type: object
+                      properties:
+                        codigo:
+                          type: string
+                          description: Código da forma de cobrança.
+                          example: "PROP"
+                        empresa:
+                          type: string
+                          description: CNPJ da empresa.
+                          example: "32604723000196"
+                        descricao:
+                          type: string
+                          description: Descrição da forma de cobrança.
+                          example: "* Cobrança Própria *"
+                        situacao:
+                          type: string
+                          description: Situação da forma de cobrança.
+                          example: "ATIVO"
+                        datainclusao:
+                          type: string
+                          format: date-time
+                          description: Data/hora em que o registro foi incluído.
+                          example: "2021-01-29T15:16:11"
+                        ultimaalteracao:
+                          type: string
+                          format: date-time
+                          description: Data/hora da última alteração no registro.
+                          example: "2021-02-18T15:21:42"
+                  totalCount:
+                    type: integer
+                    description: Total de registros disponíveis na base de dados.
+                    example: 68
+                  limit:
+                    type: integer
+                    description: Número máximo de registros retornados por página.
+                    example: 2
+                  offset:
+                    type: integer
+                    description: Posição inicial da consulta atual (para paginação).
+                    example: 0
+                  filename:
+                    type: string
+                    description: Nome do recurso/arquivo retornado.
+                    example: "ListaFormaCobranca"
+                  count:
+                    type: integer
+                    description: Quantidade de registros retornados nesta página.
+                    example: 2
+                  hasMore:
+                    type: boolean
+                    description: Indica se há mais registros além dos retornados.
+                    example: true
+                  status:
+                    type: string
+                    description: Status da requisição.
+                    example: "SUCCESS"
+                  message:
+                    type: string
+                    description: Mensagem adicional da API.
+                    example: "Dados retornados com sucesso"
+              example:
+                items:
+                  - codigo: "PROP"
+                    empresa: "32604723000196"
+                    descricao: "* Cobrança Própria *"
+                    situacao: "ATIVO"
+                    datainclusao: "2021-01-29T15:16:11"
+                    ultimaalteracao: "2021-02-18T15:21:42"
+                  - codigo: "ANTBB"
+                    empresa: "32604723000196"
+                    descricao: "ANTECIPADO B.B BRASIL"
+                    situacao: "INATIVO"
+                    datainclusao: "2021-03-25T09:49:23"
+                    ultimaalteracao: "2021-08-06T14:58:40"
+                totalCount: 68
+                limit: 2
+                offset: 0
+                filename: "ListaFormaCobranca"
+                count: 2
+                hasMore: true
+                status: "SUCCESS"
+                message: "Dados retornados com sucesso"
+        '401':
+          description: Erro de autenticação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ERROR"
+                  mensagem:
+                    type: string
+                    example: "Autenticação inválida."
+              example:
+                status: "ERROR"
+                mensagem: "Autenticação inválida."
+
+  /vendas/v3/ListaGrupoCliente:
+    get:
+      tags:
+        - vendas/v3
+      summary: Lista grupos de cliente
+      description: >
+        Retorna uma lista paginada de grupos de cliente cadastrados, com código e descrição.
+      responses:
+        '200':
+          description: Retorno de sucesso com a lista de grupos de cliente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    description: Lista de grupos de cliente.
+                    items:
+                      type: object
+                      properties:
+                        codigo:
+                          type: string
+                          description: Código do grupo de cliente.
+                          example: "81"
+                        descricao:
+                          type: string
+                          description: Descrição do grupo de cliente.
+                          example: "Funcionários"
+                  totalCount:
+                    type: integer
+                    description: Total de registros disponíveis na base de dados.
+                    example: 10
+                  limit:
+                    type: integer
+                    description: Número máximo de registros retornados por página.
+                    example: 2
+                  offset:
+                    type: integer
+                    description: Posição inicial da consulta atual (para paginação).
+                    example: 0
+                  filename:
+                    type: string
+                    description: Nome do recurso/arquivo retornado.
+                    example: "ListaGrupoCliente"
+                  count:
+                    type: integer
+                    description: Quantidade de registros retornados nesta página.
+                    example: 2
+                  hasMore:
+                    type: boolean
+                    description: Indica se há mais registros além dos retornados.
+                    example: true
+                  status:
+                    type: string
+                    description: Status da requisição.
+                    example: "SUCCESS"
+                  message:
+                    type: string
+                    description: Mensagem adicional da API.
+                    example: "Dados retornados com sucesso"
+              example:
+                items:
+                  - codigo: "81"
+                    descricao: "Funcionários"
+                  - codigo: "101"
+                    descricao: "Terceiros"
+                totalCount: 10
+                limit: 2
+                offset: 0
+                filename: "ListaGrupoCliente"
+                count: 2
+                hasMore: true
+                status: "SUCCESS"
+                message: "Dados retornados com sucesso"
+        '401':
+          description: Erro de autenticação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ERROR"
+                  mensagem:
+                    type: string
+                    example: "Autenticação inválida."
+              example:
+                status: "ERROR"
+                mensagem: "Autenticação inválida."
   /vendas/v3/ListaNotaFiscal/{mod}/{serie}/{numero}:
     get:
       tags:
@@ -1851,7 +2425,7 @@ paths:
                     example: 0
                   filename:
                     type: string
-                    example: "ListaNotasFiscais"
+                    example: "ListaNotaFiscal"
                   count:
                     type: integer
                     example: 2
@@ -1864,574 +2438,6 @@ paths:
                   message:
                     type: string
                     example: "Dados retornados com sucesso"
-
-  /vendas/v3/ListaOrcamento/{numero}:
-    get:
-      tags:
-        - vendas/v3
-      summary: Consulta detalhes de um orçamento
-      description: Retorna os dados completos de um orçamento específico pelo número.
-      parameters:
-        - name: numero
-          in: path
-          required: true
-          description: Número do orçamento
-          schema:
-            type: integer
-            example: 50495
-      responses:
-        '200':
-          description: Detalhes do orçamento retornados com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  item:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        numero:
-                          type: integer
-                          example: 50495
-                        empresa:
-                          type: string
-                          example: "32604723000196"
-                        cnpjcpfcliente:
-                          type: string
-                          example: "14174856478"
-                        vendedor:
-                          type: string
-                          example: "LARISSA.DEMO"
-                        datapedido:
-                          type: string
-                          format: date
-                          example: "2025-02-27"
-                        datavalidade:
-                          type: string
-                          format: date
-                          example: "2025-04-04"
-                        dataenvio:
-                          type: string
-                          format: date
-                          nullable: true
-                          example: null
-                        tabelapreco:
-                          type: string
-                          example: "TESTAR SUCATA"
-                        condicaopagamento:
-                          type: string
-                          nullable: true
-                          example: null
-                        valortotalorcamento:
-                          type: number
-                          format: float
-                          example: 201
-                        valordesconto:
-                          type: number
-                          format: float
-                          example: 0
-                        modalidadefrete:
-                          type: integer
-                          example: 9
-                        valorfrete:
-                          type: number
-                          format: float
-                          example: 0
-                        observacao:
-                          type: string
-                          nullable: true
-                          example: null
-                        situacao:
-                          type: string
-                          example: "DIGITACAO"
-                        produto:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              item:
-                                type: integer
-                                example: 1
-                              codigo:
-                                type: string
-                                example: "REVMAD60"
-                              qtdevenda:
-                                type: number
-                                format: float
-                                example: 1
-                              valorvenda:
-                                type: number
-                                format: float
-                                example: 201
-                              valordesconto:
-                                type: number
-                                format: float
-                                example: 0
-                              situacao:
-                                type: string
-                                example: "ABERTO"
-                        personalizado:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              campo1:
-                                type: string
-                                nullable: true
-                              campo2:
-                                type: string
-                                nullable: true
-                              campo3:
-                                type: string
-                                nullable: true
-                              campo4:
-                                type: string
-                                nullable: true
-                              campo5:
-                                type: string
-                                nullable: true
-                              campo6:
-                                type: string
-                                nullable: true
-                  status:
-                    type: string
-                    example: "SUCCESS"
-
-  /vendas/v3/ListaOrcamento:
-    get:
-      tags:
-        - vendas/v3
-      summary: Lista orçamentos com filtros
-      description: Retorna uma lista de orçamentos filtrados por datas, situação, vendedor ou cliente.
-      parameters:
-        - name: datainicial
-          in: query
-          description: Data inicial no formato YYYY-MM-DD
-          required: false
-          schema:
-            type: string
-            example: "01-01-2023"
-        - name: datafinal
-          in: query
-          description: Data final no formato YYYY-MM-DD
-          required: false
-          schema:
-            type: string
-            example: "31-12-2023"
-        - name: situacao
-          in: query
-          description: Situação do orçamento
-          required: false
-          schema:
-            type: string
-            enum: [cancelado, autorizado, perdido, digitacao, encerrado]
-            example: "cancelado"
-        - name: vendedor
-          in: query
-          description: Nome do vendedor responsável
-          required: false
-          schema:
-            type: string
-            example: "ADMINISTRADOR"
-        - name: cnpjcpfcliente
-          in: query
-          description: CNPJ ou CPF do cliente
-          required: false
-          schema:
-            type: string
-            example: "13745643000106"
-        - name: dataenvio
-          in: query
-          description: Data de envio do orçamento (formato YYYY-MM-DD)
-          required: false
-          schema:
-            type: string
-            example: "01-01-2023"
-      responses:
-        '200':
-          description: Lista de orçamentos retornada com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        empresa:
-                          type: string
-                          example: "32604723000196"
-                        cnpjcpfcliente:
-                          type: string
-                          example: "13745643000106"
-                        vendedor:
-                          type: string
-                          example: "ADMINISTRADOR"
-                        datapedido:
-                          type: string
-                          format: date
-                          example: "2013-08-23"
-                        tabelapreco:
-                          type: string
-                          example: "LIVRE"
-                        condicaopagamento:
-                          type: string
-                          example: " 00000294"
-                        valortotalorcamento:
-                          type: number
-                          format: float
-                          example: 384
-                        situacao:
-                          type: string
-                          example: "CANCELADO"
-                        personalizado:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              campo1:
-                                type: string
-                                nullable: true
-                              campo2:
-                                type: string
-                                nullable: true
-                              campo3:
-                                type: string
-                                nullable: true
-                              campo4:
-                                type: string
-                                nullable: true
-                              campo5:
-                                type: string
-                                nullable: true
-                              campo6:
-                                type: string
-                                nullable: true
-                  totalCount:
-                    type: integer
-                    example: 439
-                  limit:
-                    type: integer
-                    example: 1
-                  offset:
-                    type: integer
-                    example: 0
-                  filename:
-                    type: string
-                    example: "ListaOrcamentos"
-                  count:
-                    type: integer
-                    example: 1
-                  hasMore:
-                    type: boolean
-                    example: true
-                  status:
-                    type: string
-                    example: "SUCCESS"
-                  message:
-                    type: string
-                    example: "Dados retornados com sucesso"
-  
-  /vendas/v3/ListaPedido/{numero}:
-    get:
-      tags:
-        - vendas/v3
-      summary: Consulta detalhes de um pedido específico
-      description: Retorna os dados detalhados de um pedido com base no número informado.
-      parameters:
-        - name: numero
-          in: path
-          required: true
-          description: Número do pedido
-          schema:
-            type: integer
-            example: 6019
-      responses:
-        '200':
-          description: Pedido retornado com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: "SUCCESS"
-                  item:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        numero:
-                          type: integer
-                          example: 6019
-                        empresa:
-                          type: string
-                          example: "32604723000196"
-                        cnpjcpfcliente:
-                          type: string
-                          nullable: true
-                        vendedor:
-                          type: string
-                          example: "CICLO.DEMO"
-                        datapedido:
-                          type: string
-                          format: date
-                          example: "2025-06-03"
-                        datavalidade:
-                          type: string
-                          format: date
-                          example: "2025-07-03"
-                        dataentregaprevista:
-                          type: string
-                          format: date
-                          example: "2025-06-02"
-                        dataautorizacao:
-                          type: string
-                          format: date-time
-                          example: "2025-06-03 11:03:13"
-                        dataenvio:
-                          type: string
-                          nullable: true
-                        tabelapreco:
-                          type: string
-                          example: "TESTAR SUCATA"
-                        condicaopagamento:
-                          type: string
-                          example: " 00000386"
-                        formacobranca:
-                          type: string
-                          nullable: true
-                        valortotalpedido:
-                          type: number
-                          format: float
-                          example: 201
-                        valordesconto:
-                          type: number
-                          format: float
-                          example: 0
-                        modalidadefrete:
-                          type: integer
-                          example: 9
-                        valorfrete:
-                          type: number
-                          format: float
-                          example: 0
-                        observacaopedido:
-                          type: string
-                          nullable: true
-                        observacaonota:
-                          type: string
-                          nullable: true
-                        situacao:
-                          type: string
-                          example: "AUTORIZADO"
-                        produto:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              item:
-                                type: integer
-                                example: 1
-                              codigo:
-                                type: string
-                                example: "REVMAD60"
-                              qtdevenda:
-                                type: integer
-                                example: 1
-                              valorvenda:
-                                type: number
-                                format: float
-                                example: 201
-                              valordesconto:
-                                type: number
-                                format: float
-                                example: 0
-                              situacao:
-                                type: string
-                                example: "ABERTO"
-                        personalizado:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              campo1:
-                                type: string
-                                example: "Francis"
-                              campo2:
-                                type: string
-                                example: "Terceirizada"
-                              campo3:
-                                type: string
-                                example: "0.05"
-                              campo4:
-                                type: string
-                                nullable: true
-                              campo5:
-                                type: string
-                                nullable: true
-                              campo6:
-                                type: string
-                                nullable: true
-
-  /vendas/v3/ListaPedido:
-    get:
-      tags:
-        - vendas/v3
-      summary: Lista pedidos de venda
-      description: Retorna uma lista de pedidos com base nos filtros fornecidos.
-      parameters:
-        - name: datainicial
-          in: query
-          required: false
-          description: Data inicial no formato YYYY-MM-DD
-          schema:
-            type: string
-            example: "01-05-2025"
-        - name: datafinal
-          in: query
-          required: false
-          description: Data final no formato YYYY-MM-DD
-          schema:
-            type: string
-            example: "31-05-2025"
-        - name: situacao
-          in: query
-          required: false
-          description: Situação do pedido
-          schema:
-            type: string
-            enum: [digitacao, orcamento, autorizado, emitido, cancelado, faturado]
-            example: "faturado"
-        - name: vendedor
-          in: query
-          required: false
-          schema:
-            type: string
-            example: "DEMO"
-        - name: cnpjcpfcliente
-          in: query
-          required: false
-          schema:
-            type: string
-            example: "14174856478"
-        - name: dataautorizacao
-          in: query
-          required: false
-          schema:
-            type: string
-            example: "05-05-2025"
-      responses:
-        '200':
-          description: Lista de pedidos retornada com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        numero:
-                          type: integer
-                          example: 5991
-                        empresa:
-                          type: string
-                          example: "32604723000196"
-                        cnpjcpfcliente:
-                          type: string
-                          example: "14174856478"
-                        vendedor:
-                          type: string
-                          example: "DEMO"
-                        datapedido:
-                          type: string
-                          format: date
-                          example: "2025-05-05"
-                        datavalidade:
-                          type: string
-                          format: date
-                          example: "2025-06-04"
-                        dataentregaprevista:
-                          type: string
-                          format: date
-                          example: "2025-05-20"
-                        dataautorizacao:
-                          type: string
-                          format: date-time
-                          example: "2025-05-05 23:00:07"
-                        dataenvio:
-                          type: string
-                          format: date-time
-                          example: "2025-05-05 23:00:13"
-                        tabelapreco:
-                          type: string
-                          example: "LIVRE"
-                        condicaopagamento:
-                          type: string
-                          example: " 00000270"
-                        valortotalpedido:
-                          type: number
-                          format: float
-                          example: 187.5
-                        situacao:
-                          type: string
-                          example: "FATURADO"
-                        personalizado:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              campo1:
-                                type: string
-                                nullable: true
-                              campo2:
-                                type: string
-                                nullable: true
-                              campo3:
-                                type: string
-                                nullable: true
-                              campo4:
-                                type: string
-                                nullable: true
-                              campo5:
-                                type: string
-                                nullable: true
-                              campo6:
-                                type: string
-                                nullable: true
-                  totalCount:
-                    type: integer
-                    example: 27
-                  limit:
-                    type: integer
-                    example: 1
-                  offset:
-                    type: integer
-                    example: 0
-                  filename:
-                    type: string
-                    example: "ListaPedidos"
-                  count:
-                    type: integer
-                    example: 1
-                  hasMore:
-                    type: boolean
-                    example: true
-                  status:
-                    type: string
-                    example: "SUCCESS"
-                  message:
-                    type: string
-                    example: "Dados retornados com sucesso"
-
   /vendas/v3/InclusaoMovtoSaidaConsumo:
     post:
       tags:
@@ -2520,21 +2526,6 @@ paths:
         - vendas/v3
       summary: Lista de serviços
       description: Retorna a lista de serviços cadastrados no sistema com paginação.
-      parameters:
-        - name: i_limit
-          in: query
-          description: Quantidade de registros a retornar
-          required: false
-          schema:
-            type: integer
-            example: 1
-        - name: i_offset
-          in: query
-          description: Quantidade de registros a pular (para paginação)
-          required: false
-          schema:
-            type: integer
-            example: 2
       responses:
         '200':
           description: Lista de serviços retornada com sucesso
@@ -2571,7 +2562,7 @@ paths:
                     example: 2
                   filename:
                     type: string
-                    example: "Servicos"
+                    example: "ListaServicos"
                   count:
                     type: integer
                     example: 1
@@ -2592,20 +2583,23 @@ paths:
       summary: Lista de produtos
       description: Retorna uma lista de produtos cadastrados no sistema com paginação e metadados.
       parameters:
-        - name: i_limit
+        - name: codigo
           in: query
-          description: Quantidade de registros a retornar
           required: false
           schema:
-            type: integer
-            example: 1
-        - name: i_offset
+            type: string
+        - name: datainclusao
           in: query
-          description: Número de registros a pular (para paginação)
+          description: Data de inclusão no formato YYYY-MM-DD
           required: false
           schema:
-            type: integer
-            example: 0
+            type: string
+        - name: dataalteracao
+          in: query
+          description: Data de alteração no formato YYYY-MM-DD
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: Lista de produtos retornada com sucesso
@@ -2654,7 +2648,7 @@ paths:
                     example: 0
                   filename:
                     type: string
-                    example: "Produtos"
+                    example: "ListaProdutos"
                   count:
                     type: integer
                     example: 1
@@ -2674,21 +2668,6 @@ paths:
         - vendas/v3
       summary: Consulta o saldo de estoque dos produtos
       description: Retorna o saldo de estoque por local de armazenagem e por lote, com informações de quantidade e reserva.
-      parameters:
-        - name: i_limit
-          in: query
-          description: Quantidade de registros por página
-          required: false
-          schema:
-            type: integer
-            example: 1
-        - name: i_offset
-          in: query
-          description: Número de registros a pular para paginação
-          required: false
-          schema:
-            type: integer
-            example: 16
       responses:
         '200':
           description: Saldo de estoque retornado com sucesso
@@ -2749,7 +2728,7 @@ paths:
                     example: 16
                   filename:
                     type: string
-                    example: "Servicos"
+                    example: "ListaSaldoEstoque"
                   count:
                     type: integer
                     example: 1
@@ -2769,21 +2748,6 @@ paths:
         - vendas/v3
       summary: Consulta as tabelas de preços
       description: Retorna uma lista de tabelas de preços, com suas versões e produtos associados.
-      parameters:
-        - name: i_limit
-          in: query
-          description: Quantidade de registros por página
-          required: false
-          schema:
-            type: integer
-            example: 1
-        - name: i_offset
-          in: query
-          description: Quantidade de registros a pular para paginação
-          required: false
-          schema:
-            type: integer
-            example: 100
       responses:
         '200':
           description: Lista de tabelas de preços retornada com sucesso
@@ -2858,7 +2822,7 @@ paths:
                     example: 100
                   filename:
                     type: string
-                    example: "TabelaPrecos"
+                    example: "ListaTabelaPrecos"
                   count:
                     type: integer
                     example: 1
@@ -2878,21 +2842,6 @@ paths:
         - vendas/v3
       summary: Consulta os vendedores cadastrados
       description: Retorna uma lista de vendedores, com seus dados pessoais, endereço e equipes associadas.
-      parameters:
-        - name: i_limit
-          in: query
-          description: Quantidade de registros por página
-          required: false
-          schema:
-            type: integer
-            example: 1
-        - name: i_offset
-          in: query
-          description: Quantidade de registros a pular para paginação
-          required: false
-          schema:
-            type: integer
-            example: 0
       responses:
         '200':
           description: Lista de vendedores retornada com sucesso
@@ -2978,7 +2927,7 @@ paths:
                     example: 0
                   filename:
                     type: string
-                    example: "Vendedores"
+                    example: "ListaVendedores"
                   count:
                     type: integer
                     example: 1
@@ -3002,25 +2951,10 @@ paths:
         - name: periodo
           in: query
           required: true
-          description: Mês e ano do período de consulta (formato MM-YYYY)
+          description: Mês e ano do período de consulta (formato YYYY-MM)
           schema:
             type: string
-            pattern: '^(0[1-9]|1[0-2])-\d{4}$'
-            example: "05-2025"
-        - name: i_limit
-          in: query
-          required: false
-          description: Quantidade de registros por página
-          schema:
-            type: integer
-            example: 1
-        - name: i_offset
-          in: query
-          required: false
-          description: Quantidade de registros a pular para paginação
-          schema:
-            type: integer
-            example: 0
+            example: "2025-05"
       responses:
         '200':
           description: Saldo de caixas e bancos retornado com sucesso
@@ -3046,7 +2980,7 @@ paths:
                           example: 301405.6
                         dtperiodo:
                           type: string
-                          example: "05/25"
+                          example: "25-05"
                         empresa:
                           type: string
                           example: "Empresa de Demonstração2z"
@@ -3061,7 +2995,7 @@ paths:
                     example: 0
                   filename:
                     type: string
-                    example: "SaldoCaixaBanco"
+                    example: "ListaSaldoCaixaBanco"
                   count:
                     type: integer
                     example: 1
@@ -3095,18 +3029,30 @@ paths:
           schema:
             type: string
             format: date
-            pattern: '^\\d{2}/\\d{2}/\\d{4}$'
-            example: '01/06/2025'
-          description: Data de início do período (formato DD/MM/YYYY).
+            example: '2025-06-30'
+          description: Data de início do período (formato YYYY-MM-DD).
         - in: query
           name: datafim
           required: false
           schema:
             type: string
             format: date
-            pattern: '^\\d{2}/\\d{2}/\\d{4}$'
-            example: '30/06/2025'
-          description: Data de fim do período (formato DD/MM/YYYY).
+            example: '2025-06-30'
+          description: Data de fim do período (formato YYYY-MM-DD).
+        - in: query
+          name: situacao
+          schema:
+            type: string
+            enum: [LIQUIDADA, CANCELADA, ABERTA]
+        - in: query
+          name: tipoconta
+          schema:
+            type: string
+            enum: ["CONTRATO","RECEBER","PAGAR"]
+        - in: query
+          name: documentopessoa
+          schema:
+            type: string
       responses:
         '200':
           description: Contas retornadas com sucesso
@@ -3369,7 +3315,7 @@ paths:
                     example: 2
                   filename:
                     type: string
-                    example: "ContasReceberPagarContratosNaoFaturados"
+                    example: "ListaContaReceberPagar"
                   count:
                     type: integer
                     example: 2
@@ -3382,6 +3328,35 @@ paths:
                   message:
                     type: string
                     example: "Dados retornados com sucesso"
+  /financ/v3/ListaContaReceber/{cnpjcpfcliente}/Boleto/{nossonumero}:
+    get:
+      tags:
+        - financ/v3
+      summary: Redireciona para o PDF do boleto da conta a receber.
+      description: Redireciona para o PDF do boleto vinculado ao documento e nossonumero informado na consulta.
+      parameters:
+        - name: cnpjcpfcliente
+          in: path
+          required: true
+          description: Documento da pessoa vinculada à conta a receber.
+          schema:
+            type: string
+            example: "49875812601"
+        - name: nossonumero
+          in: path
+          required: true
+          description: Nossonumero da conta a receber.
+          schema:
+            type: string
+            example: "11544003"
+      responses:
+        '200':
+          description: PDF gerado com sucesso.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
 
 components:
   securitySchemes:
