@@ -3070,6 +3070,10 @@ paths:
                           type: string
                           description: Número do documento ou boleto.
                           example: "1185 001"
+                        nossonumero:
+                          type: string
+                          description: Nosso Número do documento ou boleto.
+                          example: "1124"
                         parcela:
                           type: integer
                           nullable: true
@@ -3084,6 +3088,10 @@ paths:
                           format: date
                           description: Data de emissão do documento.
                           example: "2025-05-09"
+                        formacobranca:
+                          type: string
+                          description: Forma de cobrança.
+                          example: "Boleto"
                         datavencimento:
                           type: string
                           format: date
@@ -3094,6 +3102,16 @@ paths:
                           format: float
                           description: Valor total da conta.
                           example: 441.10
+                        valordesconto:
+                          type: number
+                          format: float
+                          description: Valor desconto da conta.
+                          example: 10.00
+                        valoracrescimo:
+                          type: number
+                          format: float
+                          description: Valor de acréscimo da conta.
+                          example: 10.00
                         saldoemaberto:
                           type: number
                           format: float
@@ -3103,6 +3121,10 @@ paths:
                           type: string
                           description: Situação da conta.
                           example: "ABERTA"
+                        linhadigitavel:
+                          type: string
+                          description: Linha digitável do boleto.
+                          example: "string"
                         datainclusao:
                           type: string
                           format: date-time
