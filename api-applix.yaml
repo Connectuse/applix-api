@@ -3124,7 +3124,7 @@ paths:
                         linhadigitavel:
                           type: string
                           description: Linha digitável do boleto.
-                          example: "string"
+                          example: "ABERTA"
                         datainclusao:
                           type: string
                           format: date-time
@@ -3168,27 +3168,20 @@ paths:
                     type: string
                     description: Mensagem adicional da API.
                     example: "Dados retornados com sucesso"
-  /financ/v3/boletos/{cnpjcpfcliente}/{nossonumero}:
+  /financ/v3/boletos/pdf/{id}:
     get:
       tags:
         - financ/v3
       summary: Redireciona para o PDF do boleto da conta a receber.
       description: Redireciona para o PDF do boleto vinculado ao documento e nossonumero informado na consulta.
       parameters:
-        - name: cnpjcpfcliente
+        - name: id
           in: path
           required: true
-          description: Documento da pessoa vinculada à conta a receber.
+          description: Id vinculado à conta a receber.
           schema:
             type: string
-            example: "49875812601"
-        - name: nossonumero
-          in: path
-          required: true
-          description: Nossonumero da conta a receber.
-          schema:
-            type: string
-            example: "11544003"
+            example: "MUExN0E2NkFFMzFGQ0NGNT00RDc0MDVEODI0OUM4M0FBNDk4Njk0NENENTI0ODBDMA=="
       responses:
         '200':
           description: PDF gerado com sucesso.
