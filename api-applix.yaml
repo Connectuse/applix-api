@@ -3058,6 +3058,10 @@ paths:
                     items:
                       type: object
                       properties:
+                        id:
+                          type: string
+                          description: Identificador interno do boleto, pode ser usado para a rota de pdf: /v3/financ/boletos/pdf/{id}
+                          example: "MUExN0E2NkFFMzFGQ0NGNT00RDc0MDVEODI0OUM4M0FBNDk4Njk0NENENTI0ODBDMA=="
                         tipo:
                           type: string
                           description: Tipo de conta.
