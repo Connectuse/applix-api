@@ -3023,7 +3023,7 @@ paths:
                     type: string
                     example: "Dados retornados com sucesso"
 
-  /vendas/v3/boletos/{cnpjcpfcliente}:
+  /financ/v3/boletos/{cnpjcpfcliente}:
     get:
       tags:
         - financ/v3
