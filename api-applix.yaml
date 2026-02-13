@@ -3,7 +3,7 @@ info:
   title: Applix API v3
   version: 1.0.0
   description: |-
-    Esta API RESTful disponibiliza os serviços dos módulos de **Vendas** e **Financeiro**
+    Esta API RESTful disponibiliza os serviços dos módulos de **Vendas**, **Financeiro** e **Contratos**
     do sistema Applix, com suporte para operações de consulta, inclusão e atualização
     de dados comerciais e financeiros.
 
@@ -13,6 +13,7 @@ info:
     - **/oauth**: Endpoints de autenticação e geração de tokens.
     - **/vendas/v3**: Endpoints relacionados a clientes, pedidos, produtos, condições de pagamento, etc.
     - **/financ/v3**: Endpoints de contas a pagar/receber, contratos e movimentações financeiras.
+    - **/contrat/v3**: Endpoints de contratos, informações de integração com financeiro, parcelas e produtos/serviços dos contratos
 
     Os dados trafegam em formato **JSON** por padrão, e alguns endpoints específicos podem retornar
     arquivos em formatos binários como **PDF**, utilizando `application/pdf` como content-type.
@@ -3580,6 +3581,986 @@ paths:
                   message:
                     type: string
                     example: "Dados retornados com sucesso"
+  /contrat/v3/contratos:
+    get:
+      tags:
+        - contrat/v3
+      summary: Lista de contratos
+      description: Retorna uma lista de contratos com base nos filtros fornecidos.
+      parameters:
+        - name: datainicial
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          example: 2026-01-29
+
+        - name: datafinal
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          example: 2026-01-29
+
+        - name: situacao
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [EM ELABORACAO, ATIVO, INATIVO, CANCELADO, CONCLUIDO, SUSPENSO]
+          example: ATIVO
+
+        - name: agente
+          in: query
+          required: false
+          schema:
+            type: string
+          example: Usuário Demonstração2
+
+        - name: cnpjcpfcliente
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "04203802000230"
+
+        - name: datafechamento
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          example: 2026-02-10
+
+      responses:
+        '200':
+          description: Lista de contratos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        tpcontrato:
+                          type: string
+                          example: SERVICO
+                        categoria:
+                          type: string
+                          example: Categórico
+                        modalidade:
+                          type: string
+                          example: trimestral
+                        situacao:
+                          type: string
+                          example: ATIVO
+                        contrato:
+                          type: string
+                          example: CONTRATO API - CONTRAT/V3 - 1
+                        numero:
+                          type: string
+                          example: "29012026"
+                        renovacao:
+                          type: string
+                          example: "1"
+                        cliente:
+                          type: string
+                          example: A. MUSTAPHA SMAIDI
+                        documento_cliente:
+                          type: string
+                          example: "04203802000230"
+                        inicio:
+                          type: string
+                          example: 29-01-2026
+                        termino:
+                          type: string
+                          example: 29-01-2027
+                        contrato_renovavel:
+                          type: string
+                          example: SIM
+                        expiracao:
+                          type: string
+                          example: 01-03-2026
+                        agente_comercial:
+                          type: string
+                          example: Usuário Demonstração2
+                        fechamento_negocio:
+                          type: string
+                          example: 29-01-2026
+                        indicante:
+                          type: string
+                          example: Usuário Demonstração2
+                        representante:
+                          type: string
+                          example: COZINHA & CIA
+                        anotacoes:
+                          type: string
+                          example: CONTRATO API - CONTRAT/V3 - TESTE
+
+                  totalCount:
+                    type: integer
+                    example: 3
+                  limit:
+                    type: integer
+                    example: 100
+                  offset:
+                    type: integer
+                    example: 0
+                  filename:
+                    type: string
+                    example: contratos
+                  count:
+                    type: integer
+                    example: 3
+                  hasMore:
+                    type: boolean
+                    example: false
+                  status:
+                    type: string
+                    example: SUCCESS
+                  message:
+                    type: string
+                    example: Dados retornados com sucesso
+
+              example:
+                items:
+                  - tpcontrato: SERVICO
+                    categoria: Categórico
+                    modalidade: trimestral
+                    situacao: ATIVO
+                    contrato: CONTRATO API - CONTRAT/V3 - 1
+                    numero: "29012026"
+                    renovacao: "1"
+                    cliente: A. MUSTAPHA SMAIDI
+                    documento_cliente: "04203802000230"
+                    inicio: 29-01-2026
+                    termino: 29-01-2027
+                    contrato_renovavel: SIM
+                    expiracao: 01-03-2026
+                    agente_comercial: Usuário Demonstração2
+                    fechamento_negocio: 29-01-2026
+                    indicante: Usuário Demonstração2
+                    representante: COZINHA & CIA
+                    anotacoes: CONTRATO API - CONTRAT/V3 - TESTE
+                
+                status: SUCCESS
+                message: Dados retornados com sucesso
+                totalCount: 1
+                limit: 100
+                offset: 0
+                count: 1
+                hasMore: false
+                filename: contratos
+        '401':
+          description: Não autorizado - token ausente ou inválido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ERROR
+                  message:
+                    type: string
+                    example: Autenticação expirada.
+              example:
+                - status: ERROR
+                  mensagem: Autenticação expirada.
+                - status: ERROR
+                  mensagem: Autenticação inválida.
+        '400':
+          description: Erro de validação de parâmetros
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ERRO
+                  mensagem:
+                    type: string
+                    example: O filtro por data inicial e data final não deve exceder 30 dias.
+              example:
+                status: ERRO
+                mensagem: O filtro por data inicial e data final não deve exceder 30 dias.
+        '413':
+          description: Resposta excede o limite permitido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ERROR
+                  message:
+                    type: string
+                    example: Resposta JSON excede o limite permitido.
+              example:
+                status: ERROR
+                message: Resposta JSON excede o limite permitido.
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ERROR
+                  message:
+                    type: string
+                    example: Erro ao processar a requisição.
+              example:
+                status: ERROR
+                message: Erro ao processar a requisição.
+    post:
+      tags:
+        - contrat/v3
+      summary: Inclusão contrato
+      description: Cria um novo contrato com informações de integração com financeiro, parcelas e produtos/serviços
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - categoria
+                - modalidade
+                - contrato
+                - numero
+                - renovacao
+                - documento_cliente
+                - inicio
+                - agente_comercial
+                - emitente
+                - situacao
+                - tpcontrato
+                - contrato_renovavel
+                - tipo_cobranca_parcela
+
+              properties:
+
+                tpcontrato:
+                  type: string
+                  enum: [SERVICO, PRODUTO, LOCACAO]
+                  example: SERVICO
+
+                categoria:
+                  type: string
+                  description: descrição cadastrada no sistema
+                  example: Categórico
+
+                modalidade:
+                  type: string
+                  description: descrição cadastrada no sistema
+                  example: trimestral
+
+                situacao:
+                  type: string
+                  enum: [EM ELABORACAO, ATIVO, INATIVO, CANCELADO, CONCLUIDO]
+                  example: ATIVO
+
+                contrato:
+                  type: string
+                  example: CONTRATO API - CONTRAT/V3 - 1
+
+                numero:
+                  type: string
+                  example: 29012026-2
+
+                renovacao:
+                  type: string
+                  example: "1"
+
+                documento_cliente:
+                  type: string
+                  example: "04203802000230"
+
+                inicio:
+                  type: string
+                  description: data do inicio do contrato no formato DD-MM-YYYY
+                  example: 29-01-2026
+
+                termino:
+                  type: string
+                  description: data de termino do contrato no formato DD-MM-YYYY
+                  example: 29-01-2027
+
+                contrato_renovavel:
+                  type: string
+                  enum: [SIM, NAO]
+                  example: SIM
+
+                expiracao:
+                  type: string
+                  description: data de expiração/renivação do contrato no formato DD-MM-YYYY
+                  example: 01-03-2026
+
+                agente_comercial:
+                  type: string
+                  description: Nome do agente comercial cadastrado no sistema
+                  example: Usuário Demonstração2
+
+                fechamento_negocio:
+                  type: string
+                  description: data de fechamento do negocio no formato DD-MM-YYYY
+                  example: 29-01-2026
+
+                indicante:
+                  type: string
+                  description: Nome do indicante cadastrado no sistema
+                  example: Usuário Demonstração2
+
+                representante:
+                  type: string
+                  description: Nome do representante cadastrado no sistema
+                  example: Usuário Demonstração2
+
+                anotacoes:
+                  type: string
+                  nullable: true
+                  example: ""
+
+                tipo_cobranca_parcela:
+                  type: string
+                  enum: [MES, DIA]
+                  example: MES
+
+                emitente:
+                  type: string
+                  description: Documento do Emitente padrão (o mesmo da empresa cadastrada em "dados da empresa")
+                  example: "05336309000170"
+
+                produtos_servicos:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - codigo
+                      - quant
+                      - vlunit
+                    properties:
+                      item:
+                        type: string
+                        example: "1"
+                      descricao:
+                        type: string
+                        example: SERVICOS
+                      codigo:
+                        type: string
+                        example: SERV001
+                      quant:
+                        type: string
+                        example: "2"
+                      vlunit:
+                        type: string
+                        example: "200"
+
+                parcelas:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - nrparcela
+                      - dtvencimento
+                      - vlparcela
+                    properties:
+                      nrparcela:
+                        type: string
+                        example: "1"
+                      dtvencimento:
+                        type: string
+                        description: data de vencimento da parcela no formato DD-MM-YYYY
+                        example: 27-02-2026
+                      dtreferencia:
+                        type: string
+                        description: data de referencia da parcela no formato DD-MM-YYYY
+                        example: 27-02-2026
+                      vlparcela:
+                        type: string
+                        example: "200"
+                      vlacrescimo:
+                        type: string
+                        nullable: true
+                        example: "10"
+                      vldesconto:
+                        type: string
+                        nullable: true
+                        example: "10"
+                      referencia:
+                        type: string
+                        nullable: true
+                        example: Teste teste teste
+                      formacobranca:
+                        type: string
+                        description: descrição da forma de cobrança cadastrada no sistema
+                        nullable: true
+                        example: Boleto SANTANDER 240
+                      tpcomissao:
+                        type: string
+                        nullable: true
+                        example: TESTE
+
+                financeiro:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      parc_divisao:
+                        type: string
+                        description: descrição da divisão cadastrada no sistema
+                        example: ADM
+                      serv_divisao:
+                        type: string
+                        description: descrição da divisão cadastrada no sistema
+                        example: ADM
+                      parc_conta_gerencial:
+                        type: string
+                        description: descrição da conta gerencial cadastrada no sistema
+                        example: Teste 1
+                      serv_conta_gerencial:
+                        type: string
+                        description: descrição da conta gerencial cadastrada no sistema
+                        example: Teste 1
+                      parc_projeto:
+                        type: string
+                        description: descrição do projeto cadastrada no sistema
+                        example: T-PROJ
+                      serv_projeto:
+                        type: string
+                        description: descrição projeto cadastrada no sistema
+                        example: T-PROJ
+
+      responses:
+        '201':
+          description: Contrato criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  contrato:
+                    type: string
+                  mensagens:
+                    type: array
+                    items:
+                      type: string
+              example:
+                status: SUCESSO
+                contrato: "10022026-5"
+                mensagens: []
+
+        '400':
+          description: Erro de validação ou falha na requisição
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  mensagens:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        nivel:
+                          type: string
+                        mensagem:
+                          type: string
+              example:
+                status: ERRO
+                mensagens:
+                  - nivel: ERRO
+                    mensagem: SITUACAO é obrigatório!
+                  - nivel: ERRO
+                    mensagem: Parâmetro HASH inválido!
+  /contrat/v3/contratos/{numero}:
+   get:
+     tags:
+       - contrat/v3
+     summary: Consulta de detalhes de um contrato especifico
+     description: Retorna os dados detalhados de um contrato com base no número infomado.
+     parameters:
+       - name: numero
+         in: path
+         required: true
+         description: Número do contrato
+         schema:
+           type: string
+           example: "29012026-2"
+     responses:
+       '200':
+         description: Contrato retornado com sucesso
+         content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "SUCCESS"
+                  item:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        tpcontrato:
+                          type: string
+                          example: SERVICO
+                        categoria:
+                          type: string
+                          example: Categórico
+                        modalidade:
+                          type: string
+                          example: trimestral
+                        situacao:
+                          type: string
+                          example: ATIVO
+                        contrato:
+                          type: string
+                          example: CONTRATO API - CONTRAT/V3 - 2
+                        numero:
+                          type: string
+                          example: "29012026-2"
+                        renovacao:
+                          type: string
+                          example: "1"
+                        cliente:
+                          type: string
+                          example: "A. MUSTAPHA SMAIDI"
+                        documento_cliente:
+                          type: string
+                          example: "04203802000230"
+                        inicio:
+                          type: string
+                          example: "29-01-2026"
+                        termino:
+                          type: string
+                          example: 29-01-2027
+                        contrato_renovavel:
+                          type: string
+                          example: SIM
+                        expiracao:
+                          type: string
+                          example: 01-03-2026
+                        agente_comercial:
+                          type: string
+                          example: Usuário Demonstração2
+                        fechamento_negocio:
+                          type: string
+                          example: 29-01-2026
+                        indicante:
+                          type: string
+                          example: Albus Dumbledores
+                        representante:
+                          type: string
+                          example: PESSOA TESTE
+                        anotacoes:
+                          type: string
+                          nullable: true
+                          example: "teste teste"
+                        tipo_cobranca_parcela:
+                          type: string
+                          example: MES
+                        tipo_cobertura:
+                          type: string
+                          example: "1"
+                        emitente:
+                          type: string
+                          example: "05336309000170"
+                        produtos_servicos:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              item:
+                                type: integer
+                                example: 1
+                              descricao:
+                                type: string
+                                example: SERVICOS
+                              codigo:
+                                type: string
+                                example: SERV001
+                              quant:
+                                type: string
+                                example: "1"
+                              vlunit:
+                                type: number
+                                format: float
+                                example: 200
+                        parcelas:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              nrparcela:
+                                type: string
+                                example: "1"
+                              dtvencimento:
+                                type: string
+                                example: 27-02-2026
+                              dtreferencia:
+                                type: string
+                                example: 27-01-2026
+                              vlparcela:
+                                type: number
+                                format: float
+                                example: 200
+                              vlacrescimo:
+                                type: number
+                                format: float
+                                example: 0
+                              vldesconto:
+                                type: number
+                                format: float
+                                example: 0
+                              referencia:
+                                type: string
+                                nullable: true
+                                example: null
+                              formacobranca:
+                                type: string
+                                example: Boleto SANTANDER 240
+                              tpcomissao:
+                                type: string
+                                nullable: true
+                                example: TESTE
+                              processo_cobranca:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    numero_processo:
+                                      type: string
+                                      example: "1776"
+                                    situacao_processo_cobranca:
+                                      type: string
+                                      example: RECEBIDO
+                                    dtperiodo_cobranca:
+                                      type: string
+                                      example: 27-04-2026
+                                    dtgeracao_cobranca:
+                                      type: string
+                                      example: 29-01-2026
+                                    empresa:
+                                      type: string
+                                      example: Empresa de Demonstração2z
+                                    empresa_destino:
+                                      type: string
+                                      example: Empresa de Demonstração2z
+                                    fluxo_cobranca:
+                                      type: string
+                                      example: Parcelas de Contratos Vencendo
+                              conta_receber:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    tipo_conta:
+                                      type: string
+                                      example: RECEBER
+                                    documento_conta:
+                                      type: string
+                                      example: ND-309
+                                    dtreferencia_conta:
+                                      type: string
+                                      example: 27-01-2026
+                                    dtvencimento_conta:
+                                      type: string
+                                      example: 27-02-2026
+                                    valor_conta:
+                                      type: number
+                                      format: float
+                                      example: 200
+                                    vdesconto_total_conta:
+                                      type: number
+                                      format: float
+                                      example: 0
+                                    acrescimo_total_conta:
+                                      type: number
+                                      format: float
+                                      example: 0
+                                    valor_quitado:
+                                      type: number
+                                      format: float
+                                      example: 200
+                                    anotacoes:
+                                      type: string
+                                      example: "Contrato: 29012026-2/1 Categoria: Categórico"
+                                    dtpagtoprevisto_conta:
+                                      type: string
+                                      example: 27-02-2026
+                                    conta_gerencial:
+                                      type: string
+                                      example: TESTE123
+                                    divisao_conta:
+                                      type: string
+                                      example: AAA
+                                    forma_cobranca:
+                                      type: string
+                                      example: Boleto SANTANDER 240
+                                    projeto_conta:
+                                      type: string
+                                      example: T-VIRUS
+                                    tipo_documento_conta:
+                                      type: string
+                                      example: AAA (TES)
+                                    nosso_numero:
+                                      type: string
+                                      nullable: true
+                                      example: "9009695"
+                                    pessoa_conta:
+                                      type: string
+                                      example: A. MUSTAPHA SMAIDI
+                                    documento_pessoa:
+                                      type: string
+                                      example: "04203802000230"
+                                    situacao:
+                                      type: string
+                                      example: LIQUIDADA 
+                        financeiro:
+                          type: array
+                          items:
+                           type: object
+                           properties:
+                             parc_divisao:
+                               type: string
+                               example: AAA
+                             serv_divisao:
+                               type: string
+                               example: AAA
+                             parc_conta_gerencial:
+                               type: string
+                               example: TESTE123
+                             serv_conta_gerencial:
+                               type: string
+                               example: TESTE123
+                             parc_projeto:
+                               type: string
+                               example: T-VIRUS
+                             serv_projeto:
+                               type: string
+                               example: T-VIRUS
+       '401':
+         description: Não autorizado - token expirado ou inválido
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 status:
+                   type: string
+                   example: ERROR
+                 mensagem:
+                   type: string
+                   example: Autenticação expirada.
+             example:
+               - status: ERROR
+                 mensagem: Autenticação expirada.
+               - status: ERROR
+                 mensagem: Autenticação inválida.
+       '400':
+         description: Requisição inválida - erro ao processar os dados informados
+         content:
+           application/json:
+             schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: ERROR
+                mensagem:
+                  type: string
+                  example: Valor inválido para o campo informado.
+             example:
+               status: ERROR
+               mensagem: Valor inválido para o campo informado.
+  /contrat/v3/parcelas:
+   post:
+    tags:
+      - contrat/v3
+    summary: Inclusão de parcelas em contrato específico
+    description: >
+      Cria parcelas com número, datas, valores, forma de cobrança
+      e tipo de comissão.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - numero
+              - parcelas
+            properties:
+              numero:
+                type: string
+                description: Número do contrato
+                example: "12022026-1"
+
+              parcelas:
+                type: array
+                description: Lista de parcelas do contrato
+                items:
+                  type: object
+                  required:
+                    - nrparcela
+                    - dtvencimento
+                    - vlparcela
+                  properties:
+                    nrparcela:
+                      type: string
+                      description: Número da parcela
+                      example: "1"
+
+                    dtvencimento:
+                      type: string
+                      description: Data de vencimento (DD-MM-YYYY)
+                      example: "27-02-2026"
+
+                    dtreferencia:
+                      type: string
+                      description: Data de referência (DD-MM-YYYY)
+                      example: "27-01-2026"
+
+                    vlparcela:
+                      type: string
+                      description: Valor da parcela
+                      example: "200"
+
+                    vlacrescimo:
+                      type: string
+                      description: Valor de acréscimo
+                      example: "0"
+
+                    vldesconto:
+                      type: string
+                      description: Valor de desconto
+                      example: "0"
+
+                    referencia:
+                      type: string
+                      nullable: true
+                      description: Campo de referência adicional
+                      example: "teste teste"
+
+                    formacobranca:
+                      type: string
+                      description: Forma de cobrança
+                      example: "Boleto SANTANDER 240"
+
+                    tpcomissao:
+                      type: string
+                      nullable: true
+                      description: Tipo de comissão
+                      example: "TESTE"
+    responses:
+       "201":
+          description: Parcelas incluídas com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: SUCESSO
+
+                  Contrato:
+                    type: string
+                    example: "12022026-1"
+
+                  mensagens:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        nivel:
+                          type: string
+                          example: SUCESSO
+                        mensagem:
+                          type: string
+                          example: Parcelas inclusas com sucesso!
+              example:
+                status: SUCESSO
+                Contrato: "12022026-1"
+                mensagens:
+                  - nivel: SUCESSO
+                    mensagem: Parcelas inclusas com sucesso!
+       "400":
+          description: Erro na requisição
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ERRO
+
+                  mensagens:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        nivel:
+                          type: string
+                          example: ERRO
+                        mensagem:
+                          type: string
+                          example: Descrição do erro
+
+              examples:
+
+                hashInvalido:
+                  summary: HASH inválido
+                  value:
+                    status: ERRO
+                    mensagens:
+                      - nivel: ERRO
+                        mensagem: Parâmetro HASH inválido!
+
+                contratoNaoEncontrado:
+                  summary: Contrato não encontrado
+                  value:
+                    status: ERRO
+                    mensagens:
+                      - nivel: ERRO
+                        mensagem: Contrato não cadastrado/encontrado no sistema!
+
+                erroValidacao:
+                  summary: Erro de validação
+                  value:
+                    status: ERRO
+                    mensagens:
+                      - nivel: ERRO
+                        mensagem: NRPARCELA é obrigatório!
+                      - nivel: ERRO
+                        mensagem: Forma de cobrança inválida!
+
+                erroInterno:
+                  summary: Erro inesperado
+                  value:
+                    status: ERRO
+                    mensagens:
+                      - nivel: ERRO
+                        mensagem: Erro interno no processamento da requisição.
 components:
   securitySchemes:
     bearerAuth:
