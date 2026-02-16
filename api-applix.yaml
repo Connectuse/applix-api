@@ -41,6 +41,8 @@ tags:
     description: Módulo de financeiro
   - name: webdesk/v3
     description: Módulo de webdesk
+  - name: contrat/v3
+    description: Módulo de contratos
 
 security:
   - bearerAuth: []
