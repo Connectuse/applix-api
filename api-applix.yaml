@@ -3617,14 +3617,14 @@ paths:
           required: false
           schema:
             type: string
-          example: Usuário Demonstração2
+          example: Usuário Demonstração
 
         - name: cnpjcpfcliente
           in: query
           required: false
           schema:
             type: string
-          example: "04203802000230"
+          example: "00000000000000"
 
         - name: datafechamento
           in: query
@@ -3671,10 +3671,10 @@ paths:
                           example: "1"
                         cliente:
                           type: string
-                          example: A. MUSTAPHA SMAIDI
+                          example: Empresa demonstração LTDA.
                         documento_cliente:
                           type: string
-                          example: "04203802000230"
+                          example: "00000000000000"
                         inicio:
                           type: string
                           example: 29-01-2026
@@ -3689,16 +3689,16 @@ paths:
                           example: 01-03-2026
                         agente_comercial:
                           type: string
-                          example: Usuário Demonstração2
+                          example: Usuário Demonstração
                         fechamento_negocio:
                           type: string
                           example: 29-01-2026
                         indicante:
                           type: string
-                          example: Usuário Demonstração2
+                          example:  Indicante Demonstração
                         representante:
                           type: string
-                          example: COZINHA & CIA
+                          example: Representante Demonstração
                         anotacoes:
                           type: string
                           example: CONTRATO API - CONTRAT/V3 - TESTE
@@ -3737,16 +3737,16 @@ paths:
                     contrato: CONTRATO API - CONTRAT/V3 - 1
                     numero: "29012026"
                     renovacao: "1"
-                    cliente: A. MUSTAPHA SMAIDI
-                    documento_cliente: "04203802000230"
+                    cliente: Empresa Demonstração LTDA.
+                    documento_cliente: "00000000000000"
                     inicio: 29-01-2026
                     termino: 29-01-2027
                     contrato_renovavel: SIM
                     expiracao: 01-03-2026
-                    agente_comercial: Usuário Demonstração2
+                    agente_comercial: Agente Demonstração
                     fechamento_negocio: 29-01-2026
-                    indicante: Usuário Demonstração2
-                    representante: COZINHA & CIA
+                    indicante: Indicante Demonstração
+                    representante: Representante Demonstração
                     anotacoes: CONTRATO API - CONTRAT/V3 - TESTE
                 
                 status: SUCCESS
@@ -3886,7 +3886,7 @@ paths:
 
                 documento_cliente:
                   type: string
-                  example: "04203802000230"
+                  example: "0000000000000"
 
                 inicio:
                   type: string
@@ -3911,7 +3911,7 @@ paths:
                 agente_comercial:
                   type: string
                   description: Nome do agente comercial cadastrado no sistema
-                  example: Usuário Demonstração2
+                  example: Agente Demonstração
 
                 fechamento_negocio:
                   type: string
@@ -3921,17 +3921,17 @@ paths:
                 indicante:
                   type: string
                   description: Nome do indicante cadastrado no sistema
-                  example: Usuário Demonstração2
+                  example: Indicante Demonstração
 
                 representante:
                   type: string
                   description: Nome do representante cadastrado no sistema
-                  example: Usuário Demonstração2
+                  example: Representante Demonstração
 
                 anotacoes:
                   type: string
                   nullable: true
-                  example: ""
+                  example: "Referente a xxxxx-xxxxxxx"
 
                 tipo_cobranca_parcela:
                   type: string
@@ -3941,7 +3941,7 @@ paths:
                 emitente:
                   type: string
                   description: Documento do Emitente padrão (o mesmo da empresa cadastrada em "dados da empresa")
-                  example: "05336309000170"
+                  example: "00000000000000"
 
                 produtos_servicos:
                   type: array
@@ -4002,16 +4002,16 @@ paths:
                       referencia:
                         type: string
                         nullable: true
-                        example: Teste teste teste
+                        example: Referencia teste
                       formacobranca:
                         type: string
                         description: descrição da forma de cobrança cadastrada no sistema
                         nullable: true
-                        example: Boleto SANTANDER 240
+                        example: Boleto SANTANDER
                       tpcomissao:
                         type: string
                         nullable: true
-                        example: TESTE
+                        example: Geral
 
                 financeiro:
                   type: array
@@ -4021,27 +4021,27 @@ paths:
                       parc_divisao:
                         type: string
                         description: descrição da divisão cadastrada no sistema
-                        example: ADM
+                        example: Divisão Parcela
                       serv_divisao:
                         type: string
                         description: descrição da divisão cadastrada no sistema
-                        example: ADM
+                        example: Divisão serviço
                       parc_conta_gerencial:
                         type: string
                         description: descrição da conta gerencial cadastrada no sistema
-                        example: Teste 1
+                        example: Conta Comercial parcela
                       serv_conta_gerencial:
                         type: string
                         description: descrição da conta gerencial cadastrada no sistema
-                        example: Teste 1
+                        example: Conta Comercial serviço
                       parc_projeto:
                         type: string
                         description: descrição do projeto cadastrada no sistema
-                        example: T-PROJ
+                        example: Projeto Parcela
                       serv_projeto:
                         type: string
                         description: descrição projeto cadastrada no sistema
-                        example: T-PROJ
+                        example: Projeto Serviço
 
       responses:
         '201':
@@ -4142,10 +4142,10 @@ paths:
                           example: "1"
                         cliente:
                           type: string
-                          example: "A. MUSTAPHA SMAIDI"
+                          example: "Empresa Demonstração LTDA."
                         documento_cliente:
                           type: string
-                          example: "04203802000230"
+                          example: "00000000000000"
                         inicio:
                           type: string
                           example: "29-01-2026"
@@ -4160,20 +4160,20 @@ paths:
                           example: 01-03-2026
                         agente_comercial:
                           type: string
-                          example: Usuário Demonstração2
+                          example: Agente Demonstração
                         fechamento_negocio:
                           type: string
                           example: 29-01-2026
                         indicante:
                           type: string
-                          example: Albus Dumbledores
+                          example: Indicante Demonstração
                         representante:
                           type: string
-                          example: PESSOA TESTE
+                          example: Representante Demonstração
                         anotacoes:
                           type: string
                           nullable: true
-                          example: "teste teste"
+                          example: "Parcela referente xx - xxxx"
                         tipo_cobranca_parcela:
                           type: string
                           example: MES
@@ -4182,7 +4182,7 @@ paths:
                           example: "1"
                         emitente:
                           type: string
-                          example: "05336309000170"
+                          example: "00000000000000"
                         produtos_servicos:
                           type: array
                           items:
@@ -4236,11 +4236,11 @@ paths:
                                 example: null
                               formacobranca:
                                 type: string
-                                example: Boleto SANTANDER 240
+                                example: Boleto SANTANDER
                               tpcomissao:
                                 type: string
                                 nullable: true
-                                example: TESTE
+                                example: Geral
                               processo_cobranca:
                                 type: array
                                 items:
@@ -4260,10 +4260,10 @@ paths:
                                       example: 29-01-2026
                                     empresa:
                                       type: string
-                                      example: Empresa de Demonstração2z
+                                      example: Empresa de Demonstração
                                     empresa_destino:
                                       type: string
-                                      example: Empresa de Demonstração2z
+                                      example: Empresa de Demonstração
                                     fluxo_cobranca:
                                       type: string
                                       example: Parcelas de Contratos Vencendo
@@ -4308,29 +4308,29 @@ paths:
                                       example: 27-02-2026
                                     conta_gerencial:
                                       type: string
-                                      example: TESTE123
+                                      example: Conta Gerencial conta
                                     divisao_conta:
                                       type: string
-                                      example: AAA
+                                      example: Divisão conta
                                     forma_cobranca:
                                       type: string
-                                      example: Boleto SANTANDER 240
+                                      example: Boleto SANTANDER
                                     projeto_conta:
                                       type: string
-                                      example: T-VIRUS
+                                      example: Projeto Conta
                                     tipo_documento_conta:
                                       type: string
-                                      example: AAA (TES)
+                                      example: Modelo A(TES)
                                     nosso_numero:
                                       type: string
                                       nullable: true
                                       example: "9009695"
                                     pessoa_conta:
                                       type: string
-                                      example: A. MUSTAPHA SMAIDI
+                                      example: Empresa Demonstração LTDA.
                                     documento_pessoa:
                                       type: string
-                                      example: "04203802000230"
+                                      example: "00000000000000"
                                     situacao:
                                       type: string
                                       example: LIQUIDADA 
@@ -4341,22 +4341,22 @@ paths:
                            properties:
                              parc_divisao:
                                type: string
-                               example: AAA
+                               example: Divisão Parcela
                              serv_divisao:
                                type: string
-                               example: AAA
+                               example: Divisão Serviço
                              parc_conta_gerencial:
                                type: string
-                               example: TESTE123
+                               example: Conta Gerencial Parcela
                              serv_conta_gerencial:
                                type: string
-                               example: TESTE123
+                               example: Conta Gerencial Serviço
                              parc_projeto:
                                type: string
-                               example: T-VIRUS
+                               example: Projeto Parcela
                              serv_projeto:
                                type: string
-                               example: T-VIRUS
+                               example: Projeto Serviço
        '401':
          description: Não autorizado - token expirado ou inválido
          content:
@@ -4458,18 +4458,18 @@ paths:
                       type: string
                       nullable: true
                       description: Campo de referência adicional
-                      example: "teste teste"
+                      example: "Referente a xx - xxxxx"
 
                     formacobranca:
                       type: string
                       description: Forma de cobrança
-                      example: "Boleto SANTANDER 240"
+                      example: "Boleto SANTANDER"
 
                     tpcomissao:
                       type: string
                       nullable: true
                       description: Tipo de comissão
-                      example: "TESTE"
+                      example: "Geral"
     responses:
        "201":
           description: Parcelas incluídas com sucesso
