@@ -4689,7 +4689,194 @@ paths:
                    mensagens:
                      - nivel: ERRO
                        mensagem: ORA-00000 - erro interno
-                      
+                       
+  /contrat/v3/alterar-contrato:
+    post:
+      tags:
+       - contrat/v3
+      summary: Alterações de informações gerais e de integração com financeiro do contrato	
+      description: >
+        Altera informaçoes gerais e informações de integração com financeiro de um determinado contrato
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - numero
+              properties:
+                numero:
+                 type: string
+                 description: Número do contrato
+                 example: "12022026-4"
+
+                categoria:
+                  type: string
+                  description: Nome da categoria cadastrada no sistema
+                  example: "Categórico"
+
+                modalidade:
+                  type: string
+                  description: Nome da modalidade cadastrada no sistema
+                  example: "trimestral"
+
+                situacao:
+                  type: string
+                  enum: [EM ELABORACAO, ATIVO, INATIVO, CONCLUIDO]
+                  description: Descrição da situação do contrato
+                  example: "EM ELABORACAO"
+
+                contrato:
+                  type: string
+                  description: Descrição do contrato
+                  example: "CONTRATO API - CONTRAT/V3 - 3"
+
+                documento_cliente:
+                  type: string
+                  description: Documento do cliente cadastrado no sistema
+                  example: "00000000000000"
+
+                termino:
+                  type: string
+                  description: Data no formato DD-MM-YYYY
+                  example: "29-01-2027"
+
+                contrato_renovavel:
+                  type: string
+                  enum: [SIM, NAO]
+                  description: Indicador se contrato é renovável
+                  example: "SIM"
+
+                expiracao:
+                  type: string
+                  description: Data no formato DD-MM-YYYY
+                  example: "01-03-2026"
+
+                agente_comercial:
+                  type: string
+                  description: Nome do Agente Comercial cadastrado no sistema
+                  example: "Agente Demonstração"
+
+                fechamento_negocio:
+                  type: string
+                  description: Data no formato DD-MM-YYYY
+                  example: "29-01-2026"
+
+                indicante:
+                  type: string
+                  description: Nome do indicante cadastrado no sistema
+                  example: "indicante Demonstração"
+
+                representante:
+                  type: string
+                  description: Nome do representante cadastrado no sistema
+                  example: "Representante Demonstração"
+
+                anotacoes:
+                  type: string
+                  description: Anotações relacionadas ao cntrato
+                  example: "Contrato referente a xxxx-xxxxxx"
+                  
+                financeiro:
+                          type: array
+                          items:
+                           type: object
+                           properties:
+                             parc_divisao:
+                               type: string
+                               description: Descrição da divisao aplicada nas parcelas
+                               example: Divisão Parcela
+                             serv_divisao:
+                               type: string
+                               description: Descrição da divisao aplicada nos serviços
+                               example: Divisão Serviço
+                             parc_conta_gerencial:
+                               type: string
+                               description: Descrição da conta gerencial aplicada nas parcelas
+                               example: Conta Gerencial Parcela
+                             serv_conta_gerencial:
+                               type: string
+                               description: Descrição da conta gerencial aplicada nos serviços
+                               example: Conta Gerencial Serviço
+                             parc_projeto:
+                               type: string
+                               description: Descrição do projeto aplicado nas parcelas
+                               example: Projeto Parcela
+                             serv_projeto:
+                               type: string
+                               description: Descrição do projeto aplicado nos serviços
+                               example: Projeto Serviço
+      responses:
+       '201':
+          description: Alterações processadas com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: SUCESSO
+
+                  Contrato:
+                    type: string
+                    example: "12022026-4"
+
+                  mensagens:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        nivel:
+                          type: string
+                          example: SUCESSO
+                        mensagem:
+                          type: string
+                          example: Contrato alterado com sucesso
+       '400':
+         description: Erro na requisição
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 status:
+                   type: string
+                   example: ERRO
+
+                 mensagens:
+                   type: array
+                   items:
+                     type: object
+                     properties:
+                       nivel:
+                         type: string
+                         example: ERRO
+                       mensagem:
+                         type: string
+                         example: Parâmetro HASH inválido!
+             examples:
+               hashInvalido:
+                 value:
+                   status: ERRO
+                   mensagens:
+                     - nivel: ERRO
+                       mensagem: Parâmetro HASH inválido!
+
+               contratoNaoEncontrado:
+                 value:
+                   status: ERRO
+                   mensagens:
+                     - nivel: ERRO
+                       mensagem: Contrato não cadastrado/encontrado no sistema!
+
+               erroValidacao:
+                 value:
+                   status: ERRO
+                   mensagens:
+                     - nivel: ERRO
+                       mensagem: AGENTE não cadastrado!                         
 components:
   securitySchemes:
     bearerAuth:
