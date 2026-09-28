@@ -3039,25 +3039,32 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - cnpjcpfcliente
               properties:
                 cnpjcpfcliente:
                   type: string
+                  description: Documento do cliente/empresa
                   example: "00000000000000"
 
                 nomecliente:
                   type: string
+                  description: Nome do cliente/empresa
                   example: "Nome da Empresa LTDA"
 
                 nomefantasia:
                   type: string
+                  description: Nome fantasia do cliente/empresa
                   example: "Empresa Fantasia"
 
                 inscricaoestadual:
                   type: string
+                  description: Inscrição estadual
                   example: ""
 
                 inscricaomunicipal:
                   type: string
+                  description: Inscrição Municipal
                   example: ""
 
                 rg:
@@ -3065,96 +3072,90 @@ paths:
                   properties:
                     numero:
                       type: string
-                      example: "498576621"
+                      description: Número do documento RG
+                      example: "000000000"
                     uf:
                       type: string
+                      description: Estado de expedição do documento
                       example: "SP"
                     dataexpedicao:
                       type: string
-                      format: date-time
-                      example: "2025-06-30 13:30:12"
+                      description: Data de expedição do documento (YYYY-MM-DD)
+                      example: "2025-06-30"
 
                 endereco:
                   type: object
                   properties:
                     rua:
                       type: string
+                      description: Nome da rua 
                       example: "AVENIDA PRINCIPAL"
                     bairro:
                       type: string
+                      description: Nome do bairro
                       example: "CENTRO"
                     numero:
                       type: string
+                      description: Número do imóvel
                       example: "772"
                     complemento:
                       type: string
+                      description: Informações de complemento
                       example: "778"
                     cep:
                       type: string
-                      example: "18200"
+                      description: CEP do endereço
+                      example: "18200000"
                     cidade:
                       type: string
+                      description: Nome da cidade
                       example: "SAO PAULO"
                     uf:
                       type: string
+                      description: Sigla do estado
                       example: "SP"
                     codigoibge:
                       type: string
+                      description: código de identificação IBGE
                       example: "0000000"
-
-                enderecoentrega:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      rua:
-                        type: string
-                        example: "string"
-                      bairro:
-                        type: string
-                        example: "string"
-                      numero:
-                        type: string
-                        example: "string"
-                      complemento:
-                        type: string
-                        example: ""
-                      cep:
-                        type: string
-                        example: "string"
-                      cidade:
-                        type: string
-                        example: "string"
-                      uf:
-                        type: string
-                        example: "SP"
-                      codigoibge:
-                        type: string
-                        example: "string"
 
                 telefone:
                   type: string
-                  example: "string"
+                  description: Telefone do cliente
+                  example: "15999999999"
 
                 email:
                   type: string
-                  example: "string"
+                  description: E-mail do cliente
+                  example: "adm@gmail.com"
 
                 classificacao:
                   type: object
                   properties:
                     grupocliente:
                       type: string
-                      example: ""
+                      description: Descrição do grupo
+                      example: "GERAL"
                     regiao:
                       type: string
+                      description: Descrição da região - informar DW para classificação automatica (somente se configurado)
                       example: "DW"
                     segmento:
                       type: string
-                      example: ""
+                      description: Descrição do segmento
+                      example: "Alimentos"
+                    porte:
+                       type: string
+                       description: Descrição do porte
+                       example: "Medio"
+                    origem:
+                       type: string
+                       description: Descrição da origem
+                       example: "GERAL"
 
                 personalizado:
                   type: object
+                  description: Campos personalizados - descrição por extenso
                   properties:
                     campo1:
                       type: string
@@ -3171,8 +3172,94 @@ paths:
 
                 anotacoes:
                   type: string
-                  example: "string"
-                
+                  description: Anotações gerais do cadastro
+                  example: "Cadastro realizado em xx/xx/xxxx - operação de xxxxxx"
+
+      responses:
+       "201":
+          description: Requisição realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                 status:
+                  type: string
+                  example: SUCESSO
+
+       "400":
+         description: Erro na requisição
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 status:
+                   type: string
+                   example: ERRO
+                 mensagens:
+                   type: array
+                   items:
+                     type: object
+                     properties:
+                       nivel:
+                        type: string
+                        example: ERRO
+                       mensagem:
+                         type: string
+             examples:
+
+               hashInvalido:
+                 value:
+                   status: ERRO
+                   mensagens:
+                     - nivel: ERRO
+                       mensagem: Parâmetro HASH inválido!
+
+               erroValidacao:
+                 value:
+                   status: ERRO
+                   mensagens:
+                     - nivel: ERRO
+                       mensagem: Erro de validação no processamento
+                     - nivel: ERRO
+                       mensagem: Outro erro de validação
+
+               clienteNaoEncontrado:
+                 value:
+                   status: ERRO
+                   mensagens:
+                     - nivel: ERRO
+                       mensagem: Cliente não cadastrado/encontrado no sistema!
+
+               contaComercialNaoEncontrada:
+                 value:
+                   status: ERRO
+                   mensagens:
+                     - nivel: ERRO
+                       mensagem: Conta comercial não encontrada/cadastrada para o documento informado!
+
+               situacaoComercialInvalida:
+                 value:
+                   status: ERRO
+                   mensagens:
+                     - nivel: ERRO
+                       mensagem: A situação comercial da conta deve estar em situação CLIENTE ou FORNECEDOR!
+
+               rgUfInvalido:
+                 value:
+                   status: ERRO
+                   mensagens:
+                     - nivel: ERRO
+                       mensagem: UF de expedição do RG inválido!
+
+               erroGenerico:
+                 value:
+                   status: ERRO
+                   mensagens:
+                     - nivel: ERRO
+                       mensagem: Erro interno no processamento da requisição
+      
   /financ/v3/boletos/{cnpjcpfcliente}:
     get:
       tags:
