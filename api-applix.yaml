@@ -244,7 +244,7 @@ paths:
           description: CNPJ ou CPF do cliente, permite no mínimo 8 digitos para buscar todos os registros no comparativo pela raiz do CNPJ.
           schema:
             type: string
-            example: "19081292000162"
+            example: "00000000000000"
       responses:
         '200':
           description: Lista de clientes retornada com sucesso
@@ -458,7 +458,7 @@ paths:
                   example: "JURIDICA"
                 cnpjcpfcliente:
                   type: string
-                  example: "04203802000230"
+                  example: "00000000000000"
                 nomecliente:
                   type: string
                   example: "Nome da Empresa LTDA"
@@ -600,7 +600,7 @@ paths:
                   example: "string"
             example:
               tipocliente: "JURIDICA"
-              cnpjcpfcliente: "04203802000230"
+              cnpjcpfcliente: "00000000000000"
               nomecliente: "Nome da Empresa LTDA"
               nomefantasia: "Empresa Fantasia"
               inscricaoestadual: ""
@@ -694,7 +694,7 @@ paths:
           description: CNPJ ou CPF do cliente vinculado ao anexo
           schema:
             type: string
-            example: "04203802000230"
+            example: "00000000000000"
         - name: filename
           in: query
           required: true
@@ -899,7 +899,7 @@ paths:
           required: false
           schema:
             type: string
-          example: "19081292000162"
+          example: "00000000000000"
         - name: situacao
           in: query
           description: Situação referente a conta a receber.
@@ -928,7 +928,7 @@ paths:
                         empresa:
                           type: string
                           description: CNPJ da empresa.
-                          example: "32604723000196"
+                          example: "00000000000000"
                         documento:
                           type: string
                           description: Número do documento ou boleto.
@@ -941,7 +941,7 @@ paths:
                         cnpjcpfcliente:
                           type: string
                           description: CNPJ ou CPF do cliente.
-                          example: "04203802000230"
+                          example: "00000000000000"
                         dataemissao:
                           type: string
                           format: date
@@ -1044,10 +1044,10 @@ paths:
               example:
                 items:
                   - tipo: "RECEBER"
-                    empresa: "32604723000196"
+                    empresa: "00000000000000"
                     documento: "1185 001"
                     parcela: 1
-                    cnpjcpfcliente: "04203802000230"
+                    cnpjcpfcliente: "00000000000000"
                     dataemissao: "2025-05-09"
                     datavencimento: "2025-05-09"
                     valorconta: 441.1
@@ -1062,9 +1062,9 @@ paths:
                         vendedor: "ADM_SERVICOS"
                     datainclusao: "2025-05-09 16:43:35"
                   - tipo: "RECEBER"
-                    empresa: "32604723000196"
+                    empresa: "00000000000000"
                     documento: "12052025"
-                    cnpjcpfcliente: "04203802000230"
+                    cnpjcpfcliente: "00000000000000"
                     dataemissao: "2025-05-30"
                     datavencimento: "2025-05-31"
                     valorconta: 21
@@ -1139,7 +1139,7 @@ paths:
                         empresa:
                           type: string
                           description: CNPJ da empresa.
-                          example: "32604723000196"
+                          example: "00000000000000"
                         descricao:
                           type: string
                           description: Descrição da forma de cobrança.
@@ -1193,13 +1193,13 @@ paths:
               example:
                 items:
                   - codigo: "PROP"
-                    empresa: "32604723000196"
+                    empresa: "00000000000000"
                     descricao: "* Cobrança Própria *"
                     situacao: "ATIVO"
                     datainclusao: "2021-01-29T15:16:11"
                     ultimaalteracao: "2021-02-18T15:21:42"
                   - codigo: "ANTBB"
-                    empresa: "32604723000196"
+                    empresa: "00000000000000"
                     descricao: "ANTECIPADO B.B BRASIL"
                     situacao: "INATIVO"
                     datainclusao: "2021-03-25T09:49:23"
@@ -1335,7 +1335,7 @@ paths:
               properties:
                 empresa:
                   type: string
-                  example: "32604723000196"
+                  example: "00000000000000"
                 localarmazenagem:
                   type: string
                   example: "ALMOXARIFADO 01"
@@ -1440,7 +1440,7 @@ paths:
           description: CNPJ ou CPF do cliente
           schema:
             type: string
-            example: "19081292000162"
+            example: "00000000000000"
       responses:
         '200':
           description: Lista de notas fiscais retornada com sucesso
@@ -1468,7 +1468,7 @@ paths:
                           example: "01558484000151"
                         cnpjcpfcliente:
                           type: string
-                          example: "19081292000162"
+                          example: "00000000000000"
                         dataemissao:
                           type: string
                           format: date
@@ -1568,7 +1568,7 @@ paths:
                           example: "60036373000144"
                         cnpjcpfcliente:
                           type: string
-                          example: "14174856478"
+                          example: "00000000000"
                         vendedor:
                           type: string
                           example: "DEMO"
@@ -1711,7 +1711,7 @@ paths:
           required: false
           schema:
             type: string
-            example: "13745643000106"
+            example: "00000000000000"
         - name: dataenvio
           in: query
           description: Data de envio do orçamento (formato YYYY-MM-DD)
@@ -1734,10 +1734,10 @@ paths:
                       properties:
                         empresa:
                           type: string
-                          example: "32604723000196"
+                          example: "00000000000000"
                         cnpjcpfcliente:
                           type: string
-                          example: "13745643000106"
+                          example: "00000000000000"
                         vendedor:
                           type: string
                           example: "ADMINISTRADOR"
@@ -1826,7 +1826,7 @@ paths:
               properties:
                 empresa:
                   type: string
-                  example: "32604723000196"
+                  example: "00000000000000"
                 cnpjcpfcliente:
                   type: string
                   nullable: true
@@ -1982,10 +1982,10 @@ paths:
                           example: 50495
                         empresa:
                           type: string
-                          example: "32604723000196"
+                          example: "00000000000000"
                         cnpjcpfcliente:
                           type: string
-                          example: "14174856478"
+                          example: "00000000000"
                         vendedor:
                           type: string
                           example: "LARISSA.DEMO"
@@ -2123,7 +2123,7 @@ paths:
           required: false
           schema:
             type: string
-            example: "14174856478"
+            example: "00000000000"
         - name: dataautorizacao
           in: query
           required: false
@@ -2148,10 +2148,10 @@ paths:
                           example: 5991
                         empresa:
                           type: string
-                          example: "32604723000196"
+                          example: "00000000000000"
                         cnpjcpfcliente:
                           type: string
-                          example: "14174856478"
+                          example: "00000000000"
                         vendedor:
                           type: string
                           example: "DEMO"
@@ -2255,7 +2255,7 @@ paths:
               properties:
                 empresa:
                   type: string
-                  example: "32604723000196"
+                  example: "00000000000000"
                 cnpjcpfcliente:
                   type: string
                   nullable: true
@@ -2427,7 +2427,7 @@ paths:
                           example: 6019
                         empresa:
                           type: string
-                          example: "32604723000196"
+                          example: "00000000000000"
                         cnpjcpfcliente:
                           type: string
                           nullable: true
@@ -2566,7 +2566,7 @@ paths:
                             properties:
                               empresa:
                                 type: string
-                                example: "32604723000196"
+                                example: "00000000000000"
                               localarmazenagem:
                                 type: string
                                 example: "Sorocaba"
@@ -3272,7 +3272,7 @@ paths:
           required: true
           schema:
             type: string
-          example: "19081292000162"
+          example: "00000000000000"
         - name: situacao
           in: query
           description: Situação referente a conta a receber.
@@ -3306,7 +3306,7 @@ paths:
                         empresa:
                           type: string
                           description: CNPJ da empresa.
-                          example: "32604723000196"
+                          example: "00000000000000"
                         documento:
                           type: string
                           description: Número do documento ou boleto.
@@ -3323,7 +3323,7 @@ paths:
                         cnpjcpfcliente:
                           type: string
                           description: CNPJ ou CPF do cliente.
-                          example: "04203802000230"
+                          example: "00000000000000"
                         dataemissao:
                           type: string
                           format: date
