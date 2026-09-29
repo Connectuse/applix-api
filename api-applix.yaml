@@ -27,8 +27,6 @@ info:
     email: suporte@applix.com.br
 
 servers:
-  - url: https://appdes.connectuse.com.br/apps/wt/
-    description: Sandbox
   - url: https://nuvem.connectuse.com.br/apps/wt/
     description: Produção
 
