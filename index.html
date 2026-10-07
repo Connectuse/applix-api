@@ -15,6 +15,16 @@
     <img slot="nav-logo"
       src="applix-logo-degrade-horizontal-color.png" />
   </rapi-doc>
+  <script>
+    // Aplica automaticamente o token retornado por /oauth/cnu/token no bearerAuth.
+    const doc = document.getElementById('thedoc');
+    doc.addEventListener('after-try', (e) => {
+      const { request, responseBody, responseStatus } = e.detail;
+      if (!responseStatus || !request.url.includes('/oauth/cnu/token')) return;
+      const token = responseBody && responseBody.access_token;
+      if (typeof token === 'string' && token) doc.setApiKey('bearerAuth', token);
+    });
+  </script>
 </body>
 
 </html>
