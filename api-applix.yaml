@@ -48,6 +48,7 @@ security:
 paths:
   /oauth/cnu/token:
     post:
+      security: []
       tags:
         - oauth
       summary: Geração de token OAuth 2.0
@@ -97,6 +98,8 @@ paths:
 
   /vendas/v3/categorias-produto:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Lista categorias de produto
@@ -211,6 +214,8 @@ paths:
                 mensagem: "Autenticação inválida."
   /vendas/v3/clientes:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Lista de clientes
@@ -438,6 +443,8 @@ paths:
                     type: string
                     example: "Dados retornados com sucesso"
     post:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Inclusão de novo cliente
@@ -679,6 +686,8 @@ paths:
                     
   /vendas/v3/clientes/{cnpjcpfcliente}/anexo:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Upload de anexo (arquivo binário) para inclusão de cliente
@@ -745,6 +754,8 @@ paths:
                     example: "Parâmetros obrigatórios ausentes ou arquivo inválido"
   /vendas/v3/condicoes-pagamento:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Lista condições de pagamento
@@ -871,6 +882,8 @@ paths:
                 
   /vendas/v3/contas-receber:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Lista contas a receber
@@ -1096,6 +1109,8 @@ paths:
                 mensagem: "Autenticação inválida."
   /vendas/v3/formas-cobranca:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Lista formas de cobrança
@@ -1229,6 +1244,8 @@ paths:
 
   /vendas/v3/grupos-cliente:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Lista grupos de cliente
@@ -1320,6 +1337,8 @@ paths:
                 mensagem: "Autenticação inválida."
   /vendas/v3/movimentos-saida-consumo:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Movimentação de saída por consumo
@@ -1401,6 +1420,8 @@ paths:
                           example: "[lote=011] não registrado no sistema ou não vinculado ao produto especificado."
   /vendas/v3/notas-fiscais:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Lista Notas Fiscais
@@ -1513,6 +1534,8 @@ paths:
                     example: "Dados retornados com sucesso"
   /vendas/v3/notas-fiscais/{mod}/{serie}/{numero}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Consulta Nota Fiscal
@@ -1669,6 +1692,8 @@ paths:
                                 example: 6012
   /vendas/v3/orcamentos:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Lista orçamentos com filtros
@@ -1804,6 +1829,8 @@ paths:
                     type: string
                     example: "Dados retornados com sucesso"
     post:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Inclusão de orçamento
@@ -1950,6 +1977,8 @@ paths:
                     example: "Campos obrigatórios ausentes ou mal formatados"
   /vendas/v3/orcamentos/{numero}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Consulta detalhes de um orçamento
@@ -2083,6 +2112,8 @@ paths:
                     example: "SUCCESS"
   /vendas/v3/pedidos:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Lista pedidos de venda
@@ -2234,6 +2265,8 @@ paths:
                     type: string
                     example: "Dados retornados com sucesso"
     post:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Inclusão de pedido
@@ -2392,6 +2425,8 @@ paths:
                     example: "Erro ao incluir pedido"
   /vendas/v3/pedidos/{numero}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Consulta detalhes de um pedido específico
@@ -2534,6 +2569,8 @@ paths:
                                 nullable: true
   /vendas/v3/saldo-estoque:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Consulta o saldo de estoque dos produtos
@@ -2613,6 +2650,8 @@ paths:
                     example: "Dados retornados com sucesso"
   /vendas/v3/servicos:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Lista de serviços
@@ -2668,6 +2707,8 @@ paths:
                     example: "Dados retornados com sucesso"
   /vendas/v3/sucatas-receber:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Lista de sucatas a receber
@@ -2742,6 +2783,8 @@ paths:
                     example: "Dados retornados com sucesso"
   /vendas/v3/produtos:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Lista de produtos
@@ -2827,6 +2870,8 @@ paths:
                     example: "Dados retornados com sucesso"
   /vendas/v3/tabela-precos:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Consulta as tabelas de preços
@@ -2921,6 +2966,8 @@ paths:
 
   /vendas/v3/vendedores:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Consulta os vendedores cadastrados
@@ -3026,6 +3073,8 @@ paths:
   
   /vendas/v3/alterar-cliente:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - vendas/v3
       summary: Alteração de cliente
@@ -3260,6 +3309,8 @@ paths:
       
   /financ/v3/boletos/{cnpjcpfcliente}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - financ/v3
       summary: Lista informações de boletos do cliente
@@ -3409,6 +3460,8 @@ paths:
                     example: "Dados retornados com sucesso"
   /financ/v3/boletos/pdf/{id}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - financ/v3
       summary: Redireciona para o PDF do boleto da conta a receber.
@@ -3431,6 +3484,8 @@ paths:
                 format: binary
   /financ/v3/contas-receber-pagar:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - financ/v3
       summary: Listar contas a receber/pagar e contratos não faturados
@@ -3750,6 +3805,8 @@ paths:
                     example: "Dados retornados com sucesso"
   /financ/v3/saldos-caixa-banco:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - financ/v3
       summary: Consulta o saldo de caixas e bancos
@@ -3817,6 +3874,8 @@ paths:
                     example: "Dados retornados com sucesso"
   /contrat/v3/contratos:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - contrat/v3
       summary: Lista de contratos
@@ -4058,6 +4117,8 @@ paths:
                 status: ERROR
                 message: Erro ao processar a requisição.
     post:
+      security:
+        - bearerAuth: []
       tags:
         - contrat/v3
       summary: Inclusão contrato
@@ -4438,6 +4499,8 @@ paths:
                     
   /contrat/v3/contratos/{numero}:
    get:
+     security:
+       - bearerAuth: []
      tags:
        - contrat/v3
      summary: Consulta de detalhes de um contrato especifico
@@ -4740,6 +4803,8 @@ paths:
                mensagem: Valor inválido para o campo informado.
   /contrat/v3/parcelas:
    post:
+    security:
+      - bearerAuth: []
     tags:
       - contrat/v3
     summary: Inclusão de parcelas em contrato específico
@@ -4910,6 +4975,8 @@ paths:
                         mensagem: Erro interno no processamento da requisição.
   /contrat/v3/cancelar-contrato:
    post:
+    security:
+      - bearerAuth: []
     tags:
      - contrat/v3
     summary: Alteração de situação do contrato (Cancelar ou suspender)
@@ -5037,9 +5104,11 @@ paths:
                        
   /contrat/v3/alterar-contrato:
     post:
+      security:
+        - bearerAuth: []
       tags:
        - contrat/v3
-      summary: Alterações de informações gerais e de integração com financeiro do contrato	
+      summary: Alterações de informações gerais e de integração com financeiro do contrato
       description: >
         Altera informaçoes gerais e informações de integração com financeiro de um determinado contrato
       requestBody:
@@ -5317,6 +5386,8 @@ paths:
                        
   /contrat/v3/alterar-parcela:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - contrat/v3
       summary: Alteração de parcelas
@@ -5486,6 +5557,8 @@ paths:
                         mensagem: Erro interno ao processar requisição
   /contrat/v3/excluir-produto-servico:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - contrat/v3
       summary: Exclusão de produto/serviço
@@ -5584,6 +5657,8 @@ paths:
                         mensagem: Erro interno ao processar requisição
   /contrat/v3/produtos-servicos:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - contrat/v3
       summary: Inclusão de produtos/serviços
@@ -5709,6 +5784,8 @@ paths:
                         mensagem: Erro interno ao processar requisição
   /contrat/v3/excluir-parcela:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - contrat/v3
       summary: Exclusão de parcelas
